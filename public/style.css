@@ -1,0 +1,266 @@
+    * {
+        margin:0;
+        padding:0;
+    }
+    
+    #header {
+        width:100%;
+        height:3em;
+        background-color:#BDB76B;
+    }
+    #header-left {
+        float:left;
+        width:30%;
+        height:3em;
+        background-color:red;
+    }
+    
+    #header-right {
+        float:right;
+        width:70%;
+        height:3em;
+    }
+    
+    #inf-container {
+        position:absolute;
+        right:2em;
+        text-align:center;
+        margin-top:0.5em; 
+        list-style-type:none;
+    }
+    
+    .inf-in-header {
+        width:6em;
+        height:2em;    
+        display:inline-block;
+        text-align: center;
+        border:1px solid black;
+        background-color: #FFE4B5;
+        cursor:pointer;
+    }
+    
+    
+    
+    
+    /* -----------------------------main-------------------------------------  */
+    
+    #main {        
+        width:100%;        
+        background-color:pink;
+    }
+    
+    #first-line {
+        width:100%;
+        height:5em;
+        display:flex;
+        justify-content: space-around;
+        background-color:#F5DEB3;
+    }
+    
+    #logo {
+        font-size:2em;
+        margin-top:.7em;
+        cursor:pointer;
+    }
+    
+    #search-conainer {
+        width:45%;
+        margin-top:1.0em;
+    }
+    
+    #input-search {
+        height:3em;
+        width:70%;
+        border:1px solid #0000FF;
+        border-radius:5px 0 0 5px;      
+        padding-left:1em;
+        font-size:1.0em;
+    }
+    
+    #search-button {
+        width:3em;
+        height:3em;
+        display:inline-block;
+        border:1px solid blue;
+        border-radius:0 5px 5px 0;
+        font-size:1.05em;
+        cursor:pointer;
+    }
+    
+    #symbols-container {
+        display:flex;
+        margin-right:0.8em;        
+    }
+    
+    
+    .symbol {
+        font-size:2.1em;
+        margin-top:.7em;
+        margin-right:1.1em;
+        cursor:pointer;
+    }
+    
+/* ---------------------------second-line---------------------- */
+
+#second-line {
+height:2.5em;
+line-height:2.5em;
+justify-content: space-around;
+font-size: 1.1em;    
+background-color: #98FB98;
+}
+#second-line:nth-child(n) {
+    cursor:pointer;
+    display:flex;
+}
+
+#all-sections ul{
+    opacity:0;
+    position:absolute;
+    list-style-type:none;
+    background-color: #98FB98;
+}
+#all-sections:hover ul{
+    opacity:1;
+    }
+
+    #all-sections ul li {
+        line-height:2em;
+        width:10em;
+    }
+
+    #all-sections ul li:not(:last-child) {
+        border-bottom:1px solid black;    
+    }
+
+     #all-sections ul i {
+         position: absolute;
+        right:0.5em;
+        line-height:2em;
+     }
+
+/* ---------------------------third-line---------------------- */
+     
+#roulette {
+    /* position:absolute; */
+    margin-left:20%;
+    display:inline-block;
+}
+
+
+
+     .roulette-img {
+         /* position:relative; */
+         /* margin-left:100pzx */
+display:inline-block;
+     }
+
+     #roulette-window {
+         position:relative;
+        width:30em;
+        height:20em;
+        padding:0.5em;
+        
+        border:2px solid red;
+        overflow:hidden;
+        }
+
+     #roulette-line {
+         width:9999px;
+     }
+     
+     .test-img {
+        width:30em;
+        height:20em;
+        margin-right:1em;
+     }
+
+     .arrow-control {
+        position:absolute;
+        font-size:2em;
+        top:45%;
+        cursor:pointer;
+     }
+
+     .arrow-control-left {
+        left:0.5em;
+    }
+
+     .arrow-control-right {
+         right:0.5em;
+     }
+
+
+
+
+
+
+
+
+
+
+
+
+    /* -----------------------------footer-------------------------------------  */
+    
+    #footer {
+        width:100%;        
+    }
+    
+    #table-footer {
+        width:90%;
+        text-align:center;
+        border-spacing:1em;
+    }
+
+    #table-footer td {
+    cursor:pointer;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    @media screen and (max-width: 620px) {
+        #logo{
+            margin-top:1.4em;
+            font-size:1.3em;           
+        }
+        
+    }
+
+    
+    @media screen and (max-width: 560px) {
+        #header{
+            width:560px;            
+        }
+        
+        #header-left {
+            width:0px;
+        }
+        
+        #header-right {
+            width:560px;  
+                    }
+        
+        #inf-container{
+            position:absolute;
+            width:320px; 
+            left:35%;                
+            text-align:justify; 
+        }
+
+        /* --------------main----------------- */
+
+    #main {
+        width:560px;
+    }
+    
+
+    } 
