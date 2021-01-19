@@ -94,11 +94,13 @@
     
     
     .symbol {
+        position:relative;
         font-size:2.1em;
         margin-top:.7em;
         margin-right:1.1em;
         cursor:pointer;
-    }
+        line-height: 0.5em;
+            }
     
 /* ---------------------------second-line---------------------- */
 
@@ -119,6 +121,7 @@ background-color: #98FB98;
     position:absolute;
     list-style-type:none;
     background-color: #98FB98;
+    z-index:9888;
 }
 #all-sections:hover ul{
     opacity:1;
@@ -142,16 +145,13 @@ background-color: #98FB98;
 /* ---------------------------third-line---------------------- */
      
 #roulette {
-    /* position:absolute; */
     margin-left:20%;
     display:inline-block;
 }
 
 
 
-     .roulette-img {
-         /* position:relative; */
-         /* margin-left:100pzx */
+     .roulette-img {    
 display:inline-block;
      }
 

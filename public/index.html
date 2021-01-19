@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <link href="style.css" rel="stylesheet">
+        <link href="registration-form.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width">
         <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
         
@@ -32,7 +33,20 @@
                     </form>
                 </div>
                 <div id="symbols-container">
-                    <div class="symbol"><i class="far fa-user"></i></div>
+                    <div class="symbol"><i id="personal-info" class="far fa-user"></i>
+                        <div id="registration-container">
+                        <form action="/checkin" method="POST" id="registration-form">
+                            <label for="email-checkin" class="label-reg">E-mail</label>
+                            <input id="email-checkin" type="email" name="email">
+                        <label for="password-checkin" class="label-reg">Password</label>
+                        <input id="password-checkin" type="password" name="password">
+                        <input type="submit" value="Check in" id="button-checkin">
+                    </form>
+                    <div id="account-frase"><p>Don't have a account?</p>
+                        <button id="registration-button">Register now</button>
+                    </div>
+                </div>
+            </div>
                     <div class="symbol">???</div>
                     <div class="symbol"><i class="fas fa-cart-arrow-down"></i></div>    
                 </div>
@@ -69,6 +83,10 @@
 
         </div>    
             
+
+
+
+
         </main>
         
         
@@ -84,11 +102,11 @@
                 <tr><td></td><td>frase1</td><td>frase3</td><td></td></tr>
             </table>
         </footer>
-        
-        
-        
+
+     
         <script src="script.js"></script>   
-        <script src="https://use.fontawesome.com/300de9396f.js"></script>
+        <script src="registration.js"></script> 
+        <!-- <script src="https://use.fontawesome.com/300de9396f.js"></script> -->
     </body>
     
     
