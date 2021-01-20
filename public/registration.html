@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link href="check-reg-window.css" rel="stylesheet">
+<style>
+    #form-toReg {
+width:40em;
+height:20em;
+margin:auto;
+background-color: rgb(97, 148, 207);
+padding: 3em;
+/* text-align: center; */
+    }
+.toBlock {
+    margin-top: 1.5em;
+       display:block;
+}
+/* input {
+       margin-bottom: 1.5em;
+} */
+</style>
+
+
+
+</head>
+<body>
+<div id="form-toReg">
+<a href="/">Return to head page</a>
+<form>
+<label for="emailReg" class="toBlock">Email</label>
+<input name="emailReg"></input>
+<label for="passwordReg" class="toBlock">Password</label>
+<input name="passwordReg" type="password"></input><input type="checkbox" onclick="showPassword()">Show Password
+<input name="submitRegButton" type="button" class="toBlock" value="confirm"></input>
+</form>
+
+</div>
+
+<script>
+    'use strict';
+let formReg = document.forms[0];
+let emailReg = formReg.elements.emailReg;
+let passwordReg = formReg.elements.passwordReg;
+let submitRegButton = formReg.elements.submitRegButton;
+
+function showPassword() {
+(passwordReg.type === "password") ? passwordReg.type = "text" : passwordReg.type = "password"
+}
+
+submitRegButton.addEventListener('click', submitRegFunc)
+
+function submitRegFunc () {
+if (!emailReg.value || !passwordReg) return console.log('complete information');
+let xhr = new XMLHttpRequest();
+let json = JSON.stringify({em:emailReg.value, pas:passwordReg.value});
+console.log(json)
+xhr.open('POST', '/registration');
+xhr.setRequestHeader('Content-Type', 'application/json');
+xhr.send(json);
+xhr.onload = function () {
+    if(xhr.status == 400) document.body.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
+    else if(xhr.status == 500) document.body.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
+    else if(xhr.status == 200) document.body.insertAdjacentHTML('beforeend', '<div class="result-op op-success"><p class="message-op">you have successfully logged in</p><i class="far fa-window-close"></i></div>');
+}
+
+
+}
+
+
+</script>
+
+
+
+</body>
+</html>

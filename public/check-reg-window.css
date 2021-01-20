@@ -1,0 +1,77 @@
+
+
+   #registration-container {
+      position:absolute;
+      width:8em;
+      height:8em;
+      left:-4em;
+      background-color:#FFFACD;
+      border:1px solid black;
+      border-radius:6px;
+      z-index:9999;
+      }
+
+      .label-reg, #account-frase {
+            display:block;
+            margin-top:1em;
+            font-size: 0.5em;
+            line-height: 1em;
+      }
+
+      .label-reg, #email-checkin, #password-checkin, #button-checkin, #account-frase {
+         margin-left:3em;
+      }
+
+
+      #button-checkin, #registration-button {
+            display:block;
+            width:7em;
+            height:2em;
+         display:block;
+         margin-top:1em;
+         cursor:pointer;
+      }
+   
+      #account-frase {
+         margin-top:2em;
+      }
+
+      #registration-button {
+         margin-top:0.5em;
+      }
+
+
+      .result-op {
+         position:absolute;
+         top:calc(35%);
+         left:calc(35%);
+         width:20em;
+         height:14em;
+           outline:1em solid #0000FF;
+         text-align: center;
+      }
+
+      .fa-window-close {
+         position:absolute;
+         right: 5%;
+         top:5%;
+         font-size: 1.5em;
+         cursor:pointer;
+      }
+
+      .message-op {
+         margin-top:20%;
+         font-size:2em;
+      }
+
+      .op-success {
+         background-color: rgb(72, 116, 36);
+      }
+
+      .op-error {
+         background-color: rgb(245, 45, 19);
+      }
+
+      .op-server-error {
+         background-color: rgb(241, 245, 19); 
+      }

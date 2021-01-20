@@ -1,4 +1,6 @@
 'use strict';
+let main = document.querySelector('#main');
+
 
 let arrowControlLeft = document.querySelector('.arrow-control-left');
 let arrowControlRight = document.querySelector('.arrow-control-right');
@@ -40,3 +42,4 @@ function automaticRoulette () {
 
 
 let t = setInterval(automaticRoulette, 5000);
+
