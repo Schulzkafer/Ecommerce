@@ -21,6 +21,17 @@ app.get('/', (req, res)=> {
 res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/laptops', (req, res)=> {
+pool.query('select * from laptops where ProductCount !=?', [0], function (err, data) {
+  if (err) res.sendStatus(500);
+  else {
+    res.sendStatus(200);
+    console.log(data)
+  }
+});
+});
+
+
 
 app.post('/checkin', jsonParser, (req,res)=> {
 if (!req.body) return res.sendStatus(400);

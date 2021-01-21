@@ -27,7 +27,7 @@ xhr.send(json);
 xhr.onload = function() {
     console.log(xhr.status)
     if (xhr.status == 401) {
-        main.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check in error</p><i class="far fa-window-close"></i></div>');
+        main.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 500) {
         main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 200) {
