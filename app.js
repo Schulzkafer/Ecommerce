@@ -4,6 +4,8 @@ const bodyParser = require("body-parser");
 const urlencodedParser = bodyParser.urlencoded({extended: false});
 const jsonParser = bodyParser.json();
 const mysql = require("mysql2");
+const fs = require('fs');
+
 // const Pool = require('mysql2/typings/mysql/lib/Pool');
   
 
@@ -20,17 +22,6 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', (req, res)=> {
 res.sendFile(__dirname + '/index.html');
 });
-
-app.get('/laptops', (req, res)=> {
-pool.query('select * from laptops where ProductCount !=?', [0], function (err, data) {
-  if (err) res.sendStatus(500);
-  else {
-    res.sendStatus(200);
-    console.log(data)
-  }
-});
-});
-
 
 
 app.post('/checkin', jsonParser, (req,res)=> {
@@ -59,9 +50,21 @@ app.post('/registration', jsonParser, (req,res)=> {
   });
   });
 
-
-
-
+  app.get('/laptops', (req, res)=> {
+    // pool.query('select * from laptops where ProductCount !=?', [0], function (err, data) {
+    //   if (err) res.sendStatus(500);
+    //   else {
+    //     res.sendStatus(200);
+    //     console.log(data)
+    //   }
+    // });
+    fs.readdir(__dirname + '/public/images/laptop-images/', function(err,data) {
+    if (err) throw err;
+    console.log(data)
+    });
+    });
+    
+    
 
 
 
