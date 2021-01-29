@@ -43,3 +43,4 @@ function automaticRoulette () {
 
 let t = setInterval(automaticRoulette, 5000);
 
+

@@ -30,7 +30,7 @@
          display:block;
          margin-top:1em;
          cursor:pointer;
-      }
+               }
    
       #account-frase {
          margin-top:2em;
@@ -38,7 +38,13 @@
 
       #registration-button {
          margin-top:0.5em;
-      }
+              }
+
+              #registration-button a {
+              text-decoration: none;
+              color:black;
+              }
+
 
 
       .result-op {

@@ -11,9 +11,23 @@ personalInfo.addEventListener('click', ()=>{
     registrationContainer.hidden = !registrationContainer.hidden;
 });
 
-registrationButton.addEventListener('click', ()=>{
-    window.open('/registration.html');
-});
+// registrationButton.addEventListener('click', ()=>{
+//     console.log(454)
+//    let xhr = new XMLHttpRequest();
+//    xhr.open('GET', '/openregistration');
+//    xhr.send();
+// });
+
+
+let userData = {
+    email:'fgf',
+    name:'',
+    surname:''
+}
+
+let hh = 'sdasdasdasdasd';
+
+
 
 buttonCheckin.addEventListener('click', (event)=> {
     event.preventDefault();
@@ -31,6 +45,7 @@ xhr.onload = function() {
     } else if (xhr.status == 500) {
         main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 200) {
+        document.cookie=`userEmail=${em}`
         main.insertAdjacentHTML('beforeend', '<div class="result-op op-success"><p class="message-op">you have successfully logged in</p><i class="far fa-window-close"></i></div>');
     }
     activateWindowClose();

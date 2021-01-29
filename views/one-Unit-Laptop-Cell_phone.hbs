@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <link href="../../check-reg-window.css" rel="stylesheet">
+     
+        <link href="../../style-partials.css" rel="stylesheet">
+        <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+<style>
+
+</style>
+
+
+
+</head>
+<body>
+{{> header}}
+
+<main id="main">
+  {{> firstSecondLine}}
+
+ {{#each item}}
+    <p><img src='../../{{this.ImageCode}}' alt="{{this.ProductName}}"></p>
+    <p class="idElem">{{this.id}}</p>
+    <p class="name">{{this.Manufacturer}} {{this.ProductName}}</p>
+    <p class="price"><span class="coef">$</span>{{this.Price}}</p>
+     <p class="description">Description: {{this.InfoItem}}</p> 
+     {{/each}}
+
+
+</main>
+
+
+{{> footer}}
+
+<script src="../../check-reg-window.js"></script> 
+
+  
+{{!-- <script>
+    'use strict';
+    
+</script> --}}
+</body>
+</html>

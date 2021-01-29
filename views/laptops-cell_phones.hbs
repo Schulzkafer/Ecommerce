@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+         <link href="check-reg-window.css" rel="stylesheet">
+         <link href="style-partials.css" rel="stylesheet">
+        
+       
+        <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+<style>
+
+  * {
+        padding:0;
+        margin:0;
+    }
+
+ .unordered-list li {
+     width:12em;
+     display:inline-block;
+     margin:2em;
+     cursor:pointer;
+   
+ }
+
+ .unordered-list li img {
+     height:10em;
+ }
+
+ .unordered-list li .name {
+    font-size:1.1em;
+    margin-bottom: 8px;
+    word-wrap: normal;
+}
+
+.unordered-list li .price {
+    font-size:1.5em;
+}
+
+
+ .coef {
+     position:relative;
+     top:-0.5em;
+     font-size:0.7em;
+ }
+
+ .idElem {
+     opacity:0;
+ }
+
+
+</style>
+
+
+
+</head>
+<body>
+{{> header}}
+
+<main id="main">
+  {{> firstSecondLine}}
+
+<ul class="unordered-list">
+            
+{{#each items}}
+<li>
+    <a href="{{this.dir}}/{{this.id}}">
+    <p class="idElem">{{this.id}}</p>
+    <p><img src="{{this.ImageCode}}" alt="{{this.ProductName}}"></p>
+    <p class="name">{{this.Manufacturer}} {{this.ProductName}}</p>
+    <p class="price"><span class="coef">$</span>{{this.Price}}</p>
+
+    </a>
+    </li>
+{{/each}}
+    </ul>
+
+</main>
+
+  {{> footer}}  
+
+
+<script src="check-reg-window.js"></script> 
+<script>
+    'use strict';
+
+</script>
+
+
+
+</body>
+</html>

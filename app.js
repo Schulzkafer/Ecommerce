@@ -1,73 +1,111 @@
-const express = require('express');
-const app = express();
-const bodyParser = require("body-parser");
-const urlencodedParser = bodyParser.urlencoded({extended: false});
-const jsonParser = bodyParser.json();
-const mysql = require("mysql2");
-const fs = require('fs');
-
-// const Pool = require('mysql2/typings/mysql/lib/Pool');
+  const express = require('express');
+  const app = express();
+  const bodyParser = require("body-parser");
+  const urlencodedParser = bodyParser.urlencoded({extended: false});
+  const jsonParser = bodyParser.json();
+  const mysql = require("mysql2");
+  const fs = require('fs');
   
-
-const pool = mysql.createPool({
-  connectionLimit: 5,
-  host: "localhost",
-  user: "root",
-  database: "usersdb",
-  password: "%ghjD654dfbE&"
-});
-
-app.use(express.static(__dirname + '/public'));
-
-app.get('/', (req, res)=> {
-res.sendFile(__dirname + '/index.html');
-});
-
-
-app.post('/checkin', jsonParser, (req,res)=> {
-if (!req.body) return res.sendStatus(400);
-let em = req.body.email;
-let pas = req.body.password;
-pool.query('select * from users where email=? and password=?', [em, pas], function (err, data) {
-if (err) res.sendStatus(500);
-else if (!data.length) res.sendStatus(401);
-else res.sendStatus(200);
-});
-});
-
-app.post('/registration', jsonParser, (req,res)=> {
-  if (!req.body) return res.sendStatus(400);
-  let em = req.body.em;
-  let pas = req.body.pas;
-  pool.query('select * from users where email=? and password=?', [em, pas], function (err, data) {
-  if (err) {
-    res.sendStatus(500);
-  } else if (!data.length) {
-    pool.query('insert into users (email, password) values (?, ?)', [em, pas], function (error, inf) {
-     (error) ? res.sendStatus(500) : res.sendStatus(200);
+  const laptopRouter = express.Router();
+  const cell_phoneRouter = express.Router();
+  
+  const hbs = require("hbs");
+  app.set('/view engine', 'hbs');
+  hbs.registerPartials(__dirname + "/views/partials");
+  
+  const pool = mysql.createPool({
+    connectionLimit: 5,
+    host: "127.0.0.1",
+    user: "root",
+    database: "usersdb",
+    password: "%ghjD654dfbE&"
   });
-  } else res.sendStatus(400);
+  
+  app.use("/laptops", laptopRouter);
+  app.use("/cell_phones", cell_phoneRouter);
+  
+  app.use(express.static(__dirname + '/public'));
+  
+  app.get('/', (req, res)=> {
+    res.render('index.hbs');
   });
+  
+  app.get('/openregistration', (req, res)=> {
+    res.render('registration.hbs') 
   });
-
-  app.get('/laptops', (req, res)=> {
-    // pool.query('select * from laptops where ProductCount !=?', [0], function (err, data) {
-    //   if (err) res.sendStatus(500);
-    //   else {
-    //     res.sendStatus(200);
-    //     console.log(data)
-    //   }
-    // });
-    fs.readdir(__dirname + '/public/images/laptop-images/', function(err,data) {
-    if (err) throw err;
-    console.log(data)
+  
+  app.post('/checkin', jsonParser, (req,res)=> {
+    if (!req.body) return res.sendStatus(400);
+    let em = req.body.email;
+    let pas = req.body.password;
+    pool.query('select * from users where email=? and password=?', [em, pas], function (err, data) {
+      console.log(data)
+      if (err) res.sendStatus(500);
+      else if (!data.length) res.sendStatus(401);
+      else res.sendStatus(200);
     });
+  });
+  
+  app.post('/registration', jsonParser, (req,res)=> {
+    if (!req.body) return res.sendStatus(400);
+    let em = req.body.em;
+    let pas = req.body.pas;
+    pool.query('select * from users where email=? and password=?', [em, pas], function (err, data) {
+      if (err) {
+        res.sendStatus(500);
+      } else if (!data.length) {
+        pool.query('insert into users (email, password) values (?, ?)', [em, pas], function (error, inf) {
+          (error) ? res.sendStatus(500) : res.sendStatus(200);
+        });
+      } else res.sendStatus(400);
     });
-    
-    
-
-
-
-
-
-app.listen(3000, ()=>console.log('server--3000'))
+  });
+  
+  
+  laptopRouter.get('/', (req, res)=> {
+    pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from laptops', function (err, data) {
+      if (err) res.sendStatus(500);
+      else {
+        data.map(x=>x['dir'] = '/laptops/observer')
+        let url = ('http://' + req.headers.host + '/laptops/observer');
+        res.render('laptops-cell_phones.hbs', {
+          items: data,
+          
+        }); 
+      }
+    });
+  });
+  
+  cell_phoneRouter.get('/', (req, res)=> {
+    pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode from cell_phones', function (err, data) {
+      if (err) res.sendStatus(500);
+      else {
+        data.map(x=>x['dir'] = '/cell_phones/observer')
+        res.render('laptops-cell_phones.hbs', {
+          items: data
+        });
+      }
+    });
+  });
+  
+  
+  laptopRouter.get('/observer/:productId', (req, res)=> {
+    let param = (req.params["productId"]);
+    pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from laptops where id=?', [param], function (err, data) {
+      res.render('one-Unit-Laptop-Cell_phone.hbs', {
+        item: data,
+      });
+    });
+  });
+  
+  cell_phoneRouter.get('/observer/:productId', (req, res)=> {
+    let param = (req.params["productId"]);
+      pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from cell_phones where id=?', [param], function (err, data) {
+      console.log(data)
+      res.render('one-Unit-Laptop-Cell_phone.hbs', {
+        item: data,
+      });
+    });
+  });
+  
+  app.listen(3000, ()=>console.log('server--3000'))
