@@ -59,7 +59,6 @@ function submitRegFunc () {
 if (!emailReg.value || !passwordReg) return console.log('complete information');
 let xhr = new XMLHttpRequest();
 let json = JSON.stringify({em:emailReg.value, pas:passwordReg.value});
-console.log(json)
 xhr.open('POST', '/registration');
 xhr.setRequestHeader('Content-Type', 'application/json');
 xhr.send(json);

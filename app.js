@@ -9,6 +9,9 @@
   const laptopRouter = express.Router();
   const cell_phoneRouter = express.Router();
   
+
+
+
   const hbs = require("hbs");
   app.set('/view engine', 'hbs');
   hbs.registerPartials(__dirname + "/views/partials");
@@ -28,6 +31,10 @@
   
   app.get('/', (req, res)=> {
     res.render('index.hbs');
+  });
+
+  app.get('/userpage', (req, res)=> {
+    res.render('user-page.hbs');
   });
   
   app.get('/openregistration', (req, res)=> {
@@ -60,7 +67,6 @@
       } else res.sendStatus(400);
     });
   });
-  
   
   laptopRouter.get('/', (req, res)=> {
     pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from laptops', function (err, data) {
@@ -101,8 +107,7 @@
   cell_phoneRouter.get('/observer/:productId', (req, res)=> {
     let param = (req.params["productId"]);
       pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from cell_phones where id=?', [param], function (err, data) {
-      console.log(data)
-      res.render('one-Unit-Laptop-Cell_phone.hbs', {
+       res.render('one-Unit-Laptop-Cell_phone.hbs', {
         item: data,
       });
     });

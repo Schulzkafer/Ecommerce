@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+<style>
+
+</style>
+
+
+</head>
+<body>
+
+<div id="form-toReg">
+<a href="/">Return to head page</a>
+</div>
+
+<div>
+<ul> 
+<li>Your email: <b id="email-user-info"></b></li>
+<li>Your name: <b id="name-user-info"></b></li>
+<li>Your surname: <b id="surname-user-info"></b></li>
+<li>Your credit: <b id="credit-user-info">0.00$</b></li> <button>Make a deposit</button></li>
+<li>Your purchases: <b id="purchases-user-info"></b>  
+</ul>
+
+<button>Add email</button><br>
+<button>Change password</button><br>
+
+
+</div>
+
+
+<script src="../../mycookie.js"></script> 
+<script>
+'use strict';
+
+function completeUserInformation () {
+let emailUserInfo = document.querySelector('#email-user-info');
+emailUserInfo.innerHTML = getCookie('email');
+
+let nameUserInfo = document.querySelector('#name-user-info'); 
+let nameCooked = getCookie('username');
+if (nameCooked) nameUserInfo.innerHTML = nameCooked;
+
+}
+completeUserInformation ()
+
+
+
+</script>
+
+
+</body>
+</html>
