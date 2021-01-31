@@ -11,7 +11,6 @@ function setCookie(name, value, options = {}) {
 
     options = {
       path: 'localhost',
-      // при необходимости добавьте другие значения по умолчанию
       ...options
     };
   
@@ -28,9 +27,8 @@ function setCookie(name, value, options = {}) {
         updatedCookie += "=" + optionValue;
       }
     }
-  
-    document.cookie = updatedCookie;
-  }
+      document.cookie = updatedCookie;
+     }
 
 
   function deleteCookie(name) {

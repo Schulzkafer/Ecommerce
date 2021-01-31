@@ -1,4 +1,5 @@
 'use strict';
+
 //будет необходимо указать правильный адрес url для сохранения куки(сейчас localhost)
 
 
@@ -37,7 +38,9 @@ if (getCookie('email'))  {
                             <label for="password-checkin" class="label-reg">Password</label>
                             <input id="password-checkin" type="password" name="password">
                             <input type="submit" value="Check in" id="button-checkin">
+                            <div><p id="result-message"></p></div>
                         </form>
+
                         <div id="account-frase"><p>Don't have a account?</p>
                             <button id="registration-button"><a href="/openregistration">Register now</a></button>
                         </div>`)
@@ -47,10 +50,9 @@ if (getCookie('email'))  {
 }
 
 
-
 personalInfo.addEventListener('click', ()=>{
     registrationContainer.hidden = !registrationContainer.hidden;
-});
+    });
 
 
 function activateButtonsCheckin() {
@@ -64,19 +66,27 @@ xhr.open('POST', '/checkin');
 xhr.setRequestHeader('Content-Type', 'application/json');
 xhr.send(json);
 xhr.onload = function() {
-    
+    let resultMessage = document.querySelector('#result-message');
     if (xhr.status == 401) {
-        main.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
+        resultMessage.innerHTML = 'check-in data error';
+        resultMessage.style.color = 'red';
+        // main.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 500) {
-        main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
+        resultMessage.innerHTML = 'internal server error';
+        resultMessage.style.color = 'yellow';
+        // main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 200) {
-        setCookie('email', em, {secure: true, 'max-age': 3600});
+        resultMessage.innerHTML = 'you have successfully logged in';
+        resultMessage.style.color = 'green';
+        
+        setCookie('email', em, {'max-age': 3600});
 
         // let expire = new Date();
 
         // expire.setHours(expire.getHours()+2);
         // document.cookie=`email=${em}; domain=localhost; expires=` + expire.toUTCString();/////////////////////////
-        main.insertAdjacentHTML('beforeend', '<div class="result-op op-success"><p class="message-op">you have successfully logged in</p><i class="far fa-window-close"></i></div>');
+        // main.insertAdjacentHTML('beforeend', '<div class="result-op op-success"><p class="message-op">you have successfully logged in</p><i class="far fa-window-close"></i></div>');
+        location.href = location.href;
     }
     activateWindowClose();
 }
@@ -89,7 +99,8 @@ function activateButtonslogOut() {
     logOut.addEventListener('click', logOutFromAccount);
 
     function logOutFromAccount() {
-        deleteCookie('email') ///переделать куки на запомнить вход/выход
+            deleteCookie('email'); ///переделать куки на запомнить вход/выход
+            location.href = location.href;
     }
 
 }
