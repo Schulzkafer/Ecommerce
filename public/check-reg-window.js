@@ -77,15 +77,8 @@ xhr.onload = function() {
         // main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 200) {
         resultMessage.innerHTML = 'you have successfully logged in';
-        resultMessage.style.color = 'green';
-        
+        resultMessage.style.color = 'green';     
         setCookie('email', em, {'max-age': 3600});
-
-        // let expire = new Date();
-
-        // expire.setHours(expire.getHours()+2);
-        // document.cookie=`email=${em}; domain=localhost; expires=` + expire.toUTCString();/////////////////////////
-        // main.insertAdjacentHTML('beforeend', '<div class="result-op op-success"><p class="message-op">you have successfully logged in</p><i class="far fa-window-close"></i></div>');
         location.href = location.href;
     }
     activateWindowClose();

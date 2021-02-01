@@ -27,7 +27,7 @@ function setCookie(name, value, options = {}) {
         updatedCookie += "=" + optionValue;
       }
     }
-      document.cookie = updatedCookie;
+          document.cookie = updatedCookie;
      }
 
 

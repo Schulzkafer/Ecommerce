@@ -67,6 +67,13 @@
       } else res.sendStatus(400);
     });
   });
+
+app.post('/changeDataUser', jsonParser, (req,res)=> {
+  if (!req.body) res.sendStatus(400);
+  console.log(req.body)
+});
+
+
   
   laptopRouter.get('/', (req, res)=> {
     pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from laptops', function (err, data) {

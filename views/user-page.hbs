@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
         <meta name="viewport" content="width=device-width">
+        <link href="user-page.css" rel="stylesheet">
         <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
 <style>
 
@@ -18,6 +19,7 @@
 
 <div>
 <ul> 
+<li>Your id: <b id="id-user-info"></b></li>
 <li>Your email: <b id="email-user-info"></b></li>
 <li>Your name: <b id="name-user-info"></b></li>
 <li>Your surname: <b id="surname-user-info"></b></li>
@@ -25,8 +27,24 @@
 <li>Your purchases: <b id="purchases-user-info"></b>  
 </ul>
 
-<button>Add email</button><br>
-<button>Change password</button><br>
+<button onclick="changeUserData('#profile-form-changing')">Change your profile</button><br>
+<button>Change your password</button><br>
+<br><br><br>
+
+<form id="profile-form-changing" name="profileformchanging">
+    <h2>Your account data</h2>
+    <input name="idUser">
+    <label>input your email</label><br>
+    <input name="changeemail"><br><br>
+    <label>input your name</label><br>
+    <input name="changename"><br><br>
+    <label>input your surname</label><br>
+    <input name="changesurname"><br><br>
+    <label>your password yo confirm</label><br>
+    <input name="passwordconfirm"><br><br>
+    {{!-- <input id ="send-changing-data" type="button" value="confirm"> --}}
+    <input type="submit" value="confirm">
+</form>
 
 
 </div>
@@ -42,15 +60,58 @@ emailUserInfo.innerHTML = getCookie('email');
 
 let nameUserInfo = document.querySelector('#name-user-info'); 
 let nameCooked = getCookie('username');
-if (nameCooked) nameUserInfo.innerHTML = nameCooked;
 
+if (nameCooked) nameUserInfo.innerHTML = nameCooked;
 }
 completeUserInformation ()
+
+document.querySelector('#profile-form-changing').hidden = true;
+
+
+function changeUserData (arg) {
+showHideStuff(arg);
+if (document.querySelector('#profile-form-changing').hidden != false) {
+  document.querySelector('#profile-form-changing').removeEventListener('submit', sendUserInfoToChange);
+    return;
+}
+let formToComplete = document.forms.profileformchanging;
+formToComplete.elements.changeemail.value = document.querySelector('#email-user-info').innerHTML;
+formToComplete.elements.changename.value = document.querySelector('#name-user-info').innerHTML;
+formToComplete.elements.changesurname.value = document.querySelector('#surname-user-info').innerHTML;
+
+let sendChangingData = document.querySelector('#send-changing-data');
+document.querySelector('#profile-form-changing').addEventListener('submit', sendUserInfoToChange);
+}
+
+
+
+async function sendUserInfoToChange (e) { 
+e.preventDefault();
+const formData = new FormData(document.querySelector('#profile-form-changing'));
+const plainFormData = Object.fromEntries(formData.entries());
+const formDataJsonString = JSON.stringify(plainFormData);
+
+let response = await fetch('/changeDataUser', {
+      method: 'POST',
+      body: formDataJsonString,
+      headers: {
+    'Content-Type': 'application/json',
+     Accept: "image/*",
+      },
+    });
+
+   let result = await response;
+
+    console.log(result);
+}
+
+
+
 
 
 
 </script>
-
+<script src="common-functions.js"></script>
 
 </body>
 </html>
