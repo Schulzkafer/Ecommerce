@@ -76,10 +76,13 @@ xhr.onload = function() {
         resultMessage.style.color = 'yellow';
         // main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
     } else if (xhr.status == 200) {
+        
         resultMessage.innerHTML = 'you have successfully logged in';
         resultMessage.style.color = 'green';     
         setCookie('email', em, {'max-age': 3600});
-        location.href = location.href;
+        let idU = JSON.parse(xhr.response).id;
+        setCookie('id', idU, {'max-age': 3600});
+      
     }
     activateWindowClose();
 }

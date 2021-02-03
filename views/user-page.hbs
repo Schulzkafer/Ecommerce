@@ -33,7 +33,7 @@
 
 <form id="profile-form-changing" name="profileformchanging">
     <h2>Your account data</h2>
-    <input name="idUser">
+    <input name="idUser" hidden>
     <label>input your email</label><br>
     <input name="changeemail"><br><br>
     <label>input your name</label><br>
@@ -75,12 +75,21 @@ if (document.querySelector('#profile-form-changing').hidden != false) {
     return;
 }
 let formToComplete = document.forms.profileformchanging;
+formToComplete.elements.idUser.value = getCookie('id')
 formToComplete.elements.changeemail.value = document.querySelector('#email-user-info').innerHTML;
 formToComplete.elements.changename.value = document.querySelector('#name-user-info').innerHTML;
 formToComplete.elements.changesurname.value = document.querySelector('#surname-user-info').innerHTML;
 
+
+
+
 let sendChangingData = document.querySelector('#send-changing-data');
 document.querySelector('#profile-form-changing').addEventListener('submit', sendUserInfoToChange);
+
+
+
+
+
 }
 
 
@@ -95,9 +104,8 @@ let response = await fetch('/changeDataUser', {
       method: 'POST',
       body: formDataJsonString,
       headers: {
-    'Content-Type': 'application/json',
-     Accept: "image/*",
-      },
+    'Content-Type': 'application/json'
+       }
     });
 
    let result = await response;
