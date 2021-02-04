@@ -49,7 +49,7 @@
        if (err) res.sendStatus(500);
        else if (!data.length) res.sendStatus(401);
        
-       else res.send(JSON.stringify({'id': data[0].id}));
+       else res.status(200).send(JSON.stringify({'id': data[0].id}));
     
 
       
@@ -71,15 +71,34 @@
     });
   });
 
-app.post('/changeDataUser', jsonParser, (req,res)=> {
+app.put('/changeDataUser', jsonParser, (req,res)=> {
   if (!req.body) res.sendStatus(400);
   let b = req.body;
   pool.query('update users set email=?, name=?, surname=? where id=? and password=?', [b.changeemail || null, b.changename, b.changesurname, b.idUser, b.passwordconfirm], (error,data)=> {
+
 if (error) res.sendStatus(500);
 else if (!data || data.changedRows == 0 && data.affectedRows == 0) res.sendStatus(401);
-else res.sendStatus(200);
+else {
+delete b.passwordconfirm;
+res.status(200).send(JSON.stringify(b));
+}
 });
 });
+
+app.put('/changePassword', jsonParser, (req,res)=> {
+  if (!req.body) res.sendStatus(400);
+  let b = req.body;
+   pool.query( 'update users set password=? where id=? and password=?', [b.newpassword, b.idUser, b.actpassword], (error, data)=> {
+    if (error) res.sendStatus(500);
+    else if (data.affectedRows==0 && data.changedRows==0) res.sendStatus(400);
+    else  res.sendStatus(200);
+
+    
+  });
+
+});
+
+
 
 
   

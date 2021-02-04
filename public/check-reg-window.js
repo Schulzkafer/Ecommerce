@@ -82,7 +82,7 @@ xhr.onload = function() {
         setCookie('email', em, {'max-age': 3600});
         let idU = JSON.parse(xhr.response).id;
         setCookie('id', idU, {'max-age': 3600});
-      
+        location.href = location.href;
     }
     activateWindowClose();
 }
