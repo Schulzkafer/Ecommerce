@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta harset="utf-8" name="viewport" content="width=device-width">
+  <title>Add credit</title>
+  <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+  <style>
+
+  </style>
+
+
+</head>
+
+<body>
+  <h1>pay sistem</h1>
+  <form name="creditform" method="POST">
+    <input name="idUserInput">
+    <input name="cardnumberinput"><label>Card number</label><br>
+    <input name="cvvcodeinput"><label>CVV code</label><br>
+    <input name="suminput"><label>sum</label><br>
+    <input type="submit" value='confirm'>
+  </form>
+<h2 id="result-op"></h2>
+
+
+
+  <script src="../../mycookie.js"></script>
+  <script>
+    'use strict';
+
+    function activateForm() {
+      let creditForm = document.forms.creditform;
+      creditForm.elements.idUserInput.value
+        = getCookie('id');
+      creditForm.addEventListener('submit', sendCreditInfo)
+    }
+    activateForm()
+
+    async function sendCreditInfo(e) {
+      e.preventDefault()
+
+      const formData = new FormData(document.forms.creditform);
+      const plainFormData = Object.fromEntries(formData.entries());
+      const formDataJsonString = JSON.stringify(plainFormData);
+
+      let response = await fetch('/addCredit', {
+        method: 'POST',
+        body: formDataJsonString,
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+
+      let result = await response;
+      
+      if (result.status == 200) {
+      let totSum = await result.json();
+      totSum = totSum[0].credit;
+      deleteCookie('credit');
+      setCookie('credit', totSum, { 'max-age': 3600 });
+      document.querySelector("#result-op").innerHTML = `operation Completed. your value is ${totSum}`;
+      } else {
+        document.querySelector("#result-op").innerHTML = 'error. try again, please';
+      }
+//если у меня выскакивает ошибка, то проверить куки, записалось ли айди в форму
+    }
+
+document.body.onclick = function () {
+  document.querySelector("#result-op").innerHTML = '';
+}
+
+
+
+
+  </script>
+
+</body>
+
+</html>

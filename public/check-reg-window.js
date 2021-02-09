@@ -10,10 +10,10 @@ let registrationContainer = document.querySelector('#registration-container');
 let emailCheckin = document.querySelector('#email-checkin');
 // let registrationButton = document.querySelector('#registration-button');
 // let buttonCheckin = document.querySelector('#button-checkin');
- let registrationButton  = null;
- let buttonCheckin = null;
- //let accountSettings  = null;
- //let logOut = null;
+let registrationButton = null;
+let buttonCheckin = null;
+//let accountSettings  = null;
+//let logOut = null;
 
 
 // function getCookie(name) {
@@ -23,11 +23,11 @@ let emailCheckin = document.querySelector('#email-checkin');
 //       return matches ? decodeURIComponent(matches[1]) : undefined;
 // }
 
-if (getCookie('email'))  {
+if (getCookie('email')) {
     registrationContainer.innerHTML = '';
     registrationContainer.insertAdjacentHTML('beforeend', `<p id="account-settings"><a href="/userpage">Your account settings</a></button><p><br><br>
     <button id="log-out">Log out</button>`);
-     //accountSettings = document.querySelector('#account-settings');
+    //accountSettings = document.querySelector('#account-settings');
     // let logOut = document.querySelector('#log-out');
     activateButtonslogOut();
 } else {
@@ -44,49 +44,64 @@ if (getCookie('email'))  {
                         <div id="account-frase"><p>Don't have a account?</p>
                             <button id="registration-button"><a href="/openregistration">Register now</a></button>
                         </div>`)
-                        registrationButton = document.querySelector('#registration-button');
-                        buttonCheckin = document.querySelector('#button-checkin');
-                        activateButtonsCheckin();
+    registrationButton = document.querySelector('#registration-button');
+    buttonCheckin = document.querySelector('#button-checkin');
+    activateButtonsCheckin();
 }
 
 
-personalInfo.addEventListener('click', ()=>{
+personalInfo.addEventListener('click', () => {
     registrationContainer.hidden = !registrationContainer.hidden;
-    });
+});
 
 
 function activateButtonsCheckin() {
-buttonCheckin.addEventListener('click', (event)=> {
-    event.preventDefault();
- let em = document.querySelector('#email-checkin').value;
- let pa = document.querySelector('#password-checkin').value;
-let json = JSON.stringify({'email':em, 'password':pa});
-let xhr = new XMLHttpRequest();
-xhr.open('POST', '/checkin');
-xhr.setRequestHeader('Content-Type', 'application/json');
-xhr.send(json);
-xhr.onload = function() {
-    let resultMessage = document.querySelector('#result-message');
-    if (xhr.status == 401) {
-        resultMessage.innerHTML = 'check-in data error';
-        resultMessage.style.color = 'red';
-        // main.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
-    } else if (xhr.status == 500) {
-        resultMessage.innerHTML = 'internal server error';
-        resultMessage.style.color = 'yellow';
-        // main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
-    } else if (xhr.status == 200) {
-        
-        resultMessage.innerHTML = 'you have successfully logged in';
-        resultMessage.style.color = 'green';     
-        setCookie('email', em, {'max-age': 3600});
-        let idU = JSON.parse(xhr.response).id;
-        setCookie('id', idU, {'max-age': 3600});
-        location.href = location.href;
-    }
-    activateWindowClose();
-}
-})
+    buttonCheckin.addEventListener('click', (event) => {
+        event.preventDefault();
+        let em = document.querySelector('#email-checkin').value;
+        let pa = document.querySelector('#password-checkin').value;
+        let json = JSON.stringify({ 'email': em, 'password': pa });
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/checkin');
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(json);
+        xhr.onload = function () {
+            let resultMessage = document.querySelector('#result-message');
+            if (xhr.status == 401) {
+                resultMessage.innerHTML = 'check-in data error';
+                resultMessage.style.color = 'red';
+                // main.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
+            } else if (xhr.status == 500) {
+                resultMessage.innerHTML = 'internal server error';
+                resultMessage.style.color = 'yellow';
+                // main.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
+            } else if (xhr.status == 200) {
+
+                resultMessage.innerHTML = 'you have successfully logged in';
+                resultMessage.style.color = 'green';
+                let res = JSON.parse(xhr.response)[0];
+                console.log(res)
+
+                let idU = res.id;
+                setCookie('id', idU, { 'max-age': 3600 });
+
+                let ema = res.email;
+                setCookie('email', ema, { 'max-age': 3600 });
+
+                let cre = res.credit;
+                setCookie('credit', cre, { 'max-age': 3600 });
+
+                let nam = res.name;
+                setCookie('name', nam, { 'max-age': 3600 });
+
+                let surnam = res.surname;
+                setCookie('surname', surnam, { 'max-age': 3600 });
+                location.href = location.href;
+
+            }
+            activateWindowClose();
+        }
+    })
 }
 
 
@@ -95,8 +110,8 @@ function activateButtonslogOut() {
     logOut.addEventListener('click', logOutFromAccount);
 
     function logOutFromAccount() {
-            deleteCookie('email'); ///переделать куки на запомнить вход/выход
-            location.href = location.href;
+        deleteCookie('email'); ///переделать куки на запомнить вход/выход
+        location.href = location.href;
     }
 
 }
@@ -108,8 +123,8 @@ function activateButtonslogOut() {
 
 
 function activateWindowClose() {
-Array.from(document.querySelectorAll('.fa-window-close')).map(x=>x.addEventListener('click', function (){
-    this.parentElement.remove()
-}))
+    Array.from(document.querySelectorAll('.fa-window-close')).map(x => x.addEventListener('click', function () {
+        this.parentElement.remove()
+    }))
 }
 activateWindowClose()

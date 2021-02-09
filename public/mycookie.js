@@ -10,7 +10,8 @@ function getCookie(name) {
 function setCookie(name, value, options = {}) {
 
     options = {
-      path: 'localhost',
+      path: '/',
+      //path: 'localhost',
       ...options
     };
   
