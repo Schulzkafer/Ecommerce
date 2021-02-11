@@ -24,7 +24,7 @@
 <h2 id="result-op"></h2>
 
 
-
+ <script src="../common-functions.js"></script>
   <script src="../../mycookie.js"></script>
   <script>
     'use strict';
@@ -66,9 +66,10 @@
 //если у меня выскакивает ошибка, то проверить куки, записалось ли айди в форму
     }
 
-document.body.onclick = function () {
-  document.querySelector("#result-op").innerHTML = '';
-}
+
+body.addEventListener('click', function () {
+  cleanHtmlCommonF(["#result-op"]);
+})
 
 
 

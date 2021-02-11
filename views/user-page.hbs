@@ -15,6 +15,8 @@
 
 <body>
 
+{{> dirLine}}
+
   <div id="form-toReg">
     <a href="/">Return to head page</a>
   </div>
@@ -39,8 +41,9 @@
       <input name="actpassword"><br><br>
       <label>Type your new password</label>
       <input type="password" name="newpassword" id="new-password">
-      <button id="show-password-toChange">show password</button>
+      <button id="show-password-toChange">show password</button><br>
       <input type="submit" value="confirm">
+      <h2 id="fieldResultPasswordChanging"></h2>
     </form>
 
     <form id="profile-form-changing" name="profileformchanging">
@@ -62,14 +65,20 @@
 
   </div>
 
-
+  <script src="common-functions.js"></script>
   <script src="../../mycookie.js"></script>
   <script>
     'use strict';
+
+body.addEventListener('click',  function () {
+cleanHtmlCommonF(['#fieldResultPasswordChanging', '#result-changing-frase']);
+});
+
+
     document.querySelector('#password-form-changing').hidden = true;
 
     function changePassword(arg) {
-      showHideStuff(arg);
+      showHideStuffCommonF(arg);
       let formPassword = document.forms.passwordformchanging;
       if (formPassword.hidden == true) {
         formPassword.removeEventListener('submit', sendPasswordChanging);
@@ -87,8 +96,8 @@
 
     async function sendPasswordChanging(e) {
       e.preventDefault();
-
-      const formData = new FormData(document.querySelector('#password-form-changing'));
+       let formInAction = document.querySelector('#password-form-changing');
+      const formData = new FormData(formInAction);
       const plainFormData = Object.fromEntries(formData.entries());
       const formDataJsonString = JSON.stringify(plainFormData);
 
@@ -101,7 +110,14 @@
       });
 
       let result = await response;
-      console.log(result)
+      let fieldResultPasswordChanging = document.querySelector('#fieldResultPasswordChanging');
+      if (result.status == 400) fieldResultPasswordChanging.innerHTML = 'Bad Request';
+      else if (result.status == 500) fieldResultPasswordChanging.innerHTML = 'Server error, try again, please';
+      else if (result.status == 200) {
+        fieldResultPasswordChanging.innerHTML = 'Operation Success';
+        formInAction.elements.newpassword.value = '';
+        formInAction.elements.actpassword.value = '';
+      }
     }
 
 
@@ -131,7 +147,7 @@
 
 
     function changeUserData(arg) {
-      showHideStuff(arg);
+      showHideStuffCommonF(arg);
       if (document.querySelector('#profile-form-changing').hidden != false) {
         document.querySelector('#profile-form-changing').removeEventListener('submit', sendUserInfoToChange);
         return;
@@ -172,9 +188,9 @@
       } else if (result.status == 200) {
         resultChangingFrase.innerHTML = 'operation competed';
         let res = await result.json();
-        setCookie('username', res.changename, { 'max-age': 3600 });
-        setCookie('usersurname', res.changesurname, { 'max-age': 3600 });
-        if (res.changeemail != '') setCookie('useremail', res.changeemail, { 'max-age': 3600 });
+        setCookie('name', res.changename, { 'max-age': 3600 });
+        setCookie('surname', res.changesurname, { 'max-age': 3600 });
+        if (res.changeemail != '') setCookie('email', res.changeemail, { 'max-age': 3600 });
         completeUserInformation()
       }
     }
@@ -185,7 +201,7 @@
 
 
   </script>
-  <script src="common-functions.js"></script>
+  
 
 </body>
 

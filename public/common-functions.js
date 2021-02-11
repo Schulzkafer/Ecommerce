@@ -1,6 +1,10 @@
+let body = document.body;
 
-
-let showHideStuff = (arg) => {
+function showHideStuffCommonF(arg) {
     arg = document.querySelector(arg)
     arg.hidden = !arg.hidden;
 }
+
+function cleanHtmlCommonF(arr) {
+    arr.forEach(x=>document.querySelector(x).innerHTML = '');
+} 
