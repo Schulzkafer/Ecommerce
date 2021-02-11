@@ -9,13 +9,13 @@
 #header {
     width:100%;
     height:3em;
-    background-color:#BDB76B;
+    background-color:#011826;
 }
 #header-left {
     float:left;
     width:30%;
     height:3em;
-    background-color:red;
+    background-color:#8EB1BF;
 }
 
 #header-right {
@@ -38,7 +38,7 @@
     display:inline-block;
     text-align: center;
     border:1px solid black;
-    background-color: #FFE4B5;
+    background-color: #F3DDC3;
     cursor:pointer;
 }
 
@@ -47,7 +47,7 @@
 
 #main {        
     width:100%;        
-    background-color:pink;
+    background-color:#DEA57C;
 }
 
 
@@ -59,7 +59,7 @@
             height:5em;
             display:flex;
             justify-content: space-around;
-            background-color:#F5DEB3;
+            background-color:#DEA57C;
         }
         
         #logo {
@@ -76,7 +76,7 @@
         #input-search {
             height:3em;
             width:70%;
-            border:1px solid #0000FF;
+            border:1px solid #56738C;
             border-radius:5px 0 0 5px;      
             padding-left:1em;
             font-size:1.0em;
@@ -86,7 +86,7 @@
             width:3em;
             height:3em;
             display:inline-block;
-            border:1px solid blue;
+            border:1px solid #56738C;
             border-radius:0 5px 5px 0;
             font-size:1.05em;
             cursor:pointer;
@@ -115,8 +115,15 @@
         line-height:2.5em;
         justify-content: space-around;
         font-size: 1.1em;    
-        background-color: #98FB98;
+        background-color: #011826;
+        color:#FFFFFF;
+               }
+
+        #second-line div a {
+            text-decoration: none;
+            color:#FFFFFF;
         }
+
         #second-line:nth-child(n) {
             cursor:pointer;
             display:flex;
@@ -126,7 +133,7 @@
             opacity:0;
             position:absolute;
             list-style-type:none;
-            background-color: #98FB98;
+            background-color: #8EB1BF;
             z-index:9888;
         }
         #all-sections:hover ul{
@@ -154,7 +161,9 @@
     /* -----------------------------footer begins-------------------------------------  */
         
     #footer {
-        width:100%;        
+        width:100%;     
+        background-color: #011826;   
+        color:#FFFFFF;
     }
     
     #table-footer {

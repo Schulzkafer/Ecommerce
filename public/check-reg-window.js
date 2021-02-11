@@ -1,34 +1,17 @@
 'use strict';
 
-//будет необходимо указать правильный адрес url для сохранения куки(сейчас localhost)
-
-
-
-
 let personalInfo = document.querySelector('#personal-info');
 let registrationContainer = document.querySelector('#registration-container');
 let emailCheckin = document.querySelector('#email-checkin');
-// let registrationButton = document.querySelector('#registration-button');
-// let buttonCheckin = document.querySelector('#button-checkin');
+
 let registrationButton = null;
 let buttonCheckin = null;
-//let accountSettings  = null;
-//let logOut = null;
-
-
-// function getCookie(name) {
-//     let matches = document.cookie.match(new RegExp(
-//         "(?:^|; )" + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + "=([^;]*)"
-//       ));
-//       return matches ? decodeURIComponent(matches[1]) : undefined;
-// }
 
 if (getCookie('email')) {
     registrationContainer.innerHTML = '';
-    registrationContainer.insertAdjacentHTML('beforeend', `<p id="account-settings"><a href="/userpage">Your account settings</a></button><p><br><br>
-    <button id="log-out">Log out</button>`);
-    //accountSettings = document.querySelector('#account-settings');
-    // let logOut = document.querySelector('#log-out');
+    registrationContainer.insertAdjacentHTML('beforeend', `<p id="account-settings"><a href="/userpage">Access your account settings<i class="fas fa-user-cog"></i></a><p>
+    <p id="log-out">Logout <i class="fas fa-sign-out-alt"></i></p>`);
+
     activateButtonslogOut();
 } else {
     registrationContainer.innerHTML = '';

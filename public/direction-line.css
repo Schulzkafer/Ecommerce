@@ -1,0 +1,14 @@
+#direction-line {
+    display:flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    background-color: #011826;
+    color:#FFFFFF;
+    white-space: nowrap;
+}
+#direction-line div{
+    line-height: 2em;
+    margin-left:3em;
+   font-size: 1.3em;
+}
+

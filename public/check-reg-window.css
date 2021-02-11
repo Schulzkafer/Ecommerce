@@ -5,10 +5,11 @@
       width:8em;
       height:8em;
       left:-4em;
-      background-color:#FFFACD;
+      background-color:#56738C;
       border:1px solid black;
       border-radius:6px;
       z-index:9999;
+      cursor:auto;
       }
 
       .label-reg, #account-frase {
@@ -86,3 +87,34 @@
       .op-server-error {
          background-color: rgb(241, 245, 19); 
       } */
+
+      #account-settings {
+         text-align:center
+     }
+
+
+     #account-settings a, #log-out {
+      display:block;
+      margin-top:1em;
+      padding:0.2em;
+         font-size:0.7em;
+     color:black;
+text-decoration:none;
+border: 1px solid black;
+background-color: #F3DDC3;
+line-height: 1.05em;
+     }
+
+     #account-settings i {
+        display:block;
+        margin-top:0.1em;
+     }
+
+     
+     #log-out {
+      text-align: center;
+      margin-top:2em;
+      line-height: 2em;
+      cursor:pointer;
+     }
+
