@@ -150,7 +150,7 @@ cell_phoneRouter.get('/', (req, res) => {
 laptopRouter.get('/observer/:productId', (req, res) => {
   let param = (req.params["productId"]);
   pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from laptops where id=?', [param], function (err, data) {
-    res.render('one-Unit-Laptop-Cell_phone.hbs', {
+    res.render('one-unit-laptop-cell_phone.hbs', {
       item: data,
     });
   });
@@ -159,7 +159,7 @@ laptopRouter.get('/observer/:productId', (req, res) => {
 cell_phoneRouter.get('/observer/:productId', (req, res) => {
   let param = (req.params["productId"]);
   pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from cell_phones where id=?', [param], function (err, data) {
-    res.render('one-Unit-Laptop-Cell_phone.hbs', {
+    res.render('one-unit-laptop-cell_phone.hbs', {
       item: data,
     });
   });
