@@ -37,16 +37,16 @@ app.get('/', (req, res) => {
 });
 
 userRouter.get('/', (req, res) => {
-  res.render('user-page.hbs');
+  res.render('reg-use-credit-folder/user-page.hbs');
 });
 
 userRouter.get('/addCredit', (req, res) => {
-  res.render('add-credit.hbs');
+  res.render('reg-use-credit-folder/credit-folder/add-credit.hbs');
 });
 
 
 app.get('/openregistration', (req, res) => {
-  res.render('registration.hbs')
+  res.render('reg-use-credit-folder/registration.hbs')
 });
 
 app.post('/checkin', jsonParser, (req, res) => {
@@ -126,7 +126,7 @@ laptopRouter.get('/', (req, res) => {
     else {
       data.map(x => x['dir'] = '/laptops/observer')
       let url = ('http://' + req.headers.host + '/laptops/observer');
-      res.render('laptops-cell_phones.hbs', {
+      res.render('laptop-cell_pnone-folder/laptops-cell_phones.hbs', {
         items: data,
 
       });
@@ -139,7 +139,7 @@ cell_phoneRouter.get('/', (req, res) => {
     if (err) res.sendStatus(500);
     else {
       data.map(x => x['dir'] = '/cell_phones/observer')
-      res.render('laptops-cell_phones.hbs', {
+      res.render('laptop-cell_pnone-folder/laptops-cell_phones.hbs', {
         items: data
       });
     }
@@ -159,7 +159,7 @@ laptopRouter.get('/observer/:productId', (req, res) => {
 cell_phoneRouter.get('/observer/:productId', (req, res) => {
   let param = (req.params["productId"]);
   pool.query('select id, ProductName, Manufacturer, ProductCount, Price, ImageCode, InfoItem from cell_phones where id=?', [param], function (err, data) {
-    res.render('one-unit-laptop-cell_phone.hbs', {
+    res.render('/one-unit-folder/one-unit-laptop-cell_phone.hbs', {
       item: data,
     });
   });
