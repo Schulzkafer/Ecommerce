@@ -15,3 +15,30 @@
   text-align: right;
 }
 
+.style-buttons-forms {
+  width: 7em;
+  min-height: 2em;
+  max-height: 3em;
+  color: #FFFFFF;
+  background-color: #8EB1BF;
+  cursor: pointer;
+}
+
+.pay-form-style-commonCSS {
+  padding: 1em;
+  text-align: left;
+  font-size: 1.3em;
+  line-height: 1.7em;
+  background-color: #F3DDC3;
+  white-space: nowrap;
+}
+
+.pay-form-style-commonCSS input {
+height: 2em;
+width: 20em;
+}
+
+.show-password-commonCSS {
+  margin-left: -1.3em;
+  cursor: pointer;
+}

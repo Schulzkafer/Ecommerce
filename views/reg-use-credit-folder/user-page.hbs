@@ -38,21 +38,6 @@
       list-style-type: none;
     }
 
-    .info-about-user-to-change,
-    .user-password-to-change {
-      padding: 1em;
-      text-align: left;
-      font-size: 1.3em;
-      line-height: 1.5em;
-      background-color: #F3DDC3;
-    }
-
-    #password-form-changing input,
-    #profile-form-changing input {
-      height: 2em;
-      width: 20em;
-    }
-
     h2 {
       margin-bottom: 0.5em;
       white-space: nowrap;
@@ -75,20 +60,7 @@
       text-align: right;
     }
 
-    .show-password {
-      margin-left: -1.3em;
-      cursor: pointer;
-    }
-
-    .style-buttons-forms {
-      width: 7em;
-      height: 3em;
-      color: #FFFFFF;
-      background-color: #8EB1BF;
-      cursor: pointer;
-    }
-
-    #painel-buttons {
+        #painel-buttons {
       margin-top: 1em;
       display: flex;
     }
@@ -143,7 +115,7 @@
       </div>
     </div>
 
-    <div class='user-password-to-change'>
+    <div class='user-password-to-change pay-form-style-commonCSS'>
       <h2>Change your password</h2>
       <form id="password-form-changing" name="passwordformchanging" class="regulation-label-form">
         <h3 id="result-changing-password"></h3>
@@ -151,14 +123,23 @@
 
         <div class="tableRow">
           <p><label>Actual password&ensp;&ensp;</label></p>
-          <p><input type="password" autocomplete="off" id="act-password-change-password" name="actpassword"><i class="fas fa-eye show-password"></i></p>
+          <p><input type="password" autocomplete="off" id="act-password-change-password" name="actpassword" required><i class="fas fa-eye show-password-commonCSS"></i></p>
+        </div>
+  <div class="tableRow" style="font-size: 0.5em;">
+          <p></p>
+          <p>Password must contain only Roman characters, symbols and number</p>
         </div>
 
         <div class="tableRow">
           <p><label>New password&ensp;&ensp;</label></p>
-          <p><input type="password" name="newpassword" id="new-password" autocomplete="off"><i
-              class="fas fa-eye show-password"></i></p>
+          <p><input type="password" name="newpassword" id="new-password" autocomplete="off" placeholder="Password must be between 5 and 20 characters" required><i
+              class="fas fa-eye show-password-commonCSS"></i></p>
         </div>
+       <div class="tableRow " style="font-size: 0.5em;" hidden>
+          <p></p>
+          <p>Password must contain only Roman characters, symbols and numbers</p>
+        </div>
+
 
         <div class="tableRow">
           <p></p>
@@ -167,7 +148,7 @@
       </form>
     </div>
 
-    <div class='info-about-user-to-change'>
+    <div class='info-about-user-to-change pay-form-style-commonCSS'>
       <h2>Change your profile</h2>
       <form id="profile-form-changing" name="profileformchanging" class="regulation-label-form">
         <h3 id="result-changing-frase"></h3>
@@ -191,7 +172,7 @@
         <div class="tableRow">
           <p><label>Password to confirm&ensp;&ensp;</label></p>
           <p><input id="passord-confirm-user-change" name="passwordconfirm" autocomplete="on"><i
-              class="fas fa-eye show-password"></i></p>
+              class="fas fa-eye show-password-commonCSS"></i></p>
         </div>
 
         <div class="tableRow">
@@ -205,6 +186,7 @@
 
   <script src="/scripts/common-functions.js"></script>
   <script src="../../scripts/mycookie.js"></script>
+  <script src="../../scripts/reg-exp-common.js"></script>
   <script>
     'use strict';
 
@@ -212,7 +194,7 @@
       cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase']);
     });
 
-    Array.from(document.querySelectorAll('.show-password')).forEach(x => x.addEventListener('click', function (e) {
+    Array.from(document.querySelectorAll('.show-password-commonCSS')).forEach(x => x.addEventListener('click', function (e) {
       e.preventDefault();
       showPasswordCommonF(this.previousElementSibling.id);
     }))
@@ -273,7 +255,14 @@
       e.preventDefault();
       let formInAction = document.querySelector('#password-form-changing');
       const formData = new FormData(formInAction);
+      //console.log(formData)
       const plainFormData = Object.fromEntries(formData.entries());
+      console.log(plainFormData)/////////////////////
+      let regPassword = checkPasswordCommon(plainFormData.newpassword)
+       if (regPassword) {
+         console.log(regPassword);
+         return;
+       }
       const formDataJsonString = JSON.stringify(plainFormData);
 
       let response = await fetch('/changePassword', {

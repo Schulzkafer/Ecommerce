@@ -38,12 +38,14 @@ app.get('/', (req, res) => {
 
 userRouter.get('/', (req, res) => {
   res.render('reg-use-credit-folder/user-page.hbs', {
-    title: 'User page Profile'
+    title: 'User Page Profile'
   });
 });
 
 userRouter.get('/addCredit', (req, res) => {
-  res.render('reg-use-credit-folder/credit-folder/add-credit.hbs');
+  res.render('reg-use-credit-folder/credit-folder/add-credit.hbs', {
+    title: 'Add Funds Page'
+  });
 });
 
 

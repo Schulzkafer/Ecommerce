@@ -3,10 +3,19 @@
 
 <head>
   <meta harset="utf-8" name="viewport" content="width=device-width">
-  <title>Add credit</title>
+  <title>{{title}}</title>
   <link href="../styles/direction-line.css" rel="stylesheet">
+  <link href="../../styles/common.css" rel="stylesheet">
   <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+  
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #F3DDC3;
+    }
 
   </style>
 
@@ -16,17 +25,37 @@
 <body>
 
 
-
   {{> directionline}}
-  <h1>pay sistem</h1>
-  <form name="creditform" method="POST">
-    <input name="idUserInput">
-    <input name="cardnumberinput"><label>Card number</label><br>
-    <input name="cvvcodeinput"><label>CVV code</label><br>
-    <input name="suminput"><label>sum</label><br>
-    <input type="submit" value='confirm'>
+
+<div class="pay-form-style-commonCSS">
+  <h2>Payment form</h2>
+  
+  <form name="creditform" method="POST" class="regulation-label-form">
+    <h3 id="result-op"></h3>
+    <input name="idUserInput" hidden>
+
+    <div class="tableRow">
+    <p><label>Card number&ensp;&ensp;</label></p>
+    <p><input name="cardnumberinput"></p>
+    </div>
+
+    <div class="tableRow">
+    <p><label>CVV code&ensp;&ensp;</label></p> 
+    <p><input name="cvvcodeinput"></p>
+    </div>
+
+    <div class="tableRow">
+    <p><label>Sum&ensp;&ensp;</label></p> 
+    <p><input name="suminput"></p>
+    </div>
+
+<div class="tableRow">
+  <p></p>
+    <p><input type="submit" value='Confirm' class="style-buttons-forms"></p>
+    </div>
   </form>
-<h2 id="result-op"></h2>
+</div>
+
 
 
  <script src="../scripts/common-functions.js"></script>
