@@ -1,0 +1,17 @@
+.regulation-label-form {
+  display: table;
+  white-space: nowrap;
+}
+
+.tableRow {
+  display: table-row;
+}
+
+.tableRow p {
+  display: table-cell;
+}
+
+.tableRow p:first-child {
+  text-align: right;
+}
+

@@ -37,7 +37,9 @@ app.get('/', (req, res) => {
 });
 
 userRouter.get('/', (req, res) => {
-  res.render('reg-use-credit-folder/user-page.hbs');
+  res.render('reg-use-credit-folder/user-page.hbs', {
+    title: 'User page Profile'
+  });
 });
 
 userRouter.get('/addCredit', (req, res) => {
