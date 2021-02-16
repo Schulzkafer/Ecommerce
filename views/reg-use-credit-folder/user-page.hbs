@@ -60,7 +60,7 @@
       text-align: right;
     }
 
-        #painel-buttons {
+    #painel-buttons {
       margin-top: 1em;
       display: flex;
     }
@@ -117,27 +117,31 @@
 
     <div class='user-password-to-change pay-form-style-commonCSS'>
       <h2>Change your password</h2>
+      <h3 id="result-changing-password"></h3>
       <form id="password-form-changing" name="passwordformchanging" class="regulation-label-form">
-        <h3 id="result-changing-password"></h3>
         <p><input name="idUser" hidden></p>
 
         <div class="tableRow">
           <p><label>Actual password&ensp;&ensp;</label></p>
-          <p><input type="password" autocomplete="off" id="act-password-change-password" name="actpassword" required><i class="fas fa-eye show-password-commonCSS"></i></p>
+          <p><input type="password" autocomplete="off" id="act-password-change-password" name="actpassword" required><i
+              class="fas fa-eye show-password-commonCSS"></i></p>
         </div>
-  <div class="tableRow" style="font-size: 0.5em;">
+
+        <div class="tableRow result-checking-reg">
           <p></p>
-          <p>Password must contain only Roman characters, symbols and number</p>
+          <p id="actual-password-error-frase"></p>
         </div>
 
         <div class="tableRow">
           <p><label>New password&ensp;&ensp;</label></p>
-          <p><input type="password" name="newpassword" id="new-password" autocomplete="off" placeholder="Password must be between 5 and 20 characters" required><i
+          <p><input type="password" name="newpassword" id="new-password" autocomplete="off"
+              placeholder="Password must be between 5 and 20 characters" required><i
               class="fas fa-eye show-password-commonCSS"></i></p>
         </div>
-       <div class="tableRow " style="font-size: 0.5em;" hidden>
+
+        <div class="tableRow result-checking-reg">
           <p></p>
-          <p>Password must contain only Roman characters, symbols and numbers</p>
+          <p id="new-password-error-frase"></p>
         </div>
 
 
@@ -150,8 +154,8 @@
 
     <div class='info-about-user-to-change pay-form-style-commonCSS'>
       <h2>Change your profile</h2>
+      <h3 id="result-changing-frase"></h3>
       <form id="profile-form-changing" name="profileformchanging" class="regulation-label-form">
-        <h3 id="result-changing-frase"></h3>
         <p><input name="idUser" hidden></p>
 
         <div class="tableRow">
@@ -191,14 +195,13 @@
     'use strict';
 
     body.addEventListener('click', function () {
-      cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase']);
+      cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase', '#actual-password-error-frase', '#new-password-error-frase']);
     });
 
     Array.from(document.querySelectorAll('.show-password-commonCSS')).forEach(x => x.addEventListener('click', function (e) {
       e.preventDefault();
       showPasswordCommonF(this.previousElementSibling.id);
     }))
-
 
     function setSizeAndVisibility() {
       let pas = document.querySelector('.user-password-to-change');
@@ -255,16 +258,19 @@
       e.preventDefault();
       let formInAction = document.querySelector('#password-form-changing');
       const formData = new FormData(formInAction);
-      //console.log(formData)
       const plainFormData = Object.fromEntries(formData.entries());
-      console.log(plainFormData)/////////////////////
-      let regPassword = checkPasswordCommon(plainFormData.newpassword)
-       if (regPassword) {
-         console.log(regPassword);
-         return;
-       }
-      const formDataJsonString = JSON.stringify(plainFormData);
+      if (checkPasswordCommon(plainFormData.actpassword)) {
+        document.querySelector('#actual-password-error-frase').innerHTML = 'You must type your correct password';
+        return;
+      }
 
+      let regNewPassword = checkPasswordCommon(plainFormData.newpassword);
+      if (regNewPassword) {
+        document.querySelector('#new-password-error-frase').innerHTML = regNewPassword;
+        return;
+      }
+
+      const formDataJsonString = JSON.stringify(plainFormData);
       let response = await fetch('/changePassword', {
         method: 'PUT',
         body: formDataJsonString,

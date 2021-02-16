@@ -42,3 +42,9 @@ width: 20em;
   margin-left: -1.3em;
   cursor: pointer;
 }
+
+.result-checking-reg {
+  font-size: 0.5em; 
+  line-height:0.5em;
+  color:red;
+}

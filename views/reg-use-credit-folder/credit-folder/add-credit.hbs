@@ -2,12 +2,13 @@
 <html lang="en">
 
 <head>
-  <meta harset="utf-8" name="viewport" content="width=device-width">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
   <title>{{title}}</title>
   <link href="../styles/direction-line.css" rel="stylesheet">
   <link href="../../styles/common.css" rel="stylesheet">
   <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
-  
+
   <style>
     * {
       box-sizing: border-box;
@@ -16,7 +17,6 @@
     body {
       background-color: #F3DDC3;
     }
-
   </style>
 
 
@@ -27,38 +27,37 @@
 
   {{> directionline}}
 
-<div class="pay-form-style-commonCSS">
-  <h2>Payment form</h2>
-  
-  <form name="creditform" method="POST" class="regulation-label-form">
+  <div class="pay-form-style-commonCSS">
+    <h2>Payment form</h2>
     <h3 id="result-op"></h3>
-    <input name="idUserInput" hidden>
+    <form name="creditform" method="POST" class="regulation-label-form">
+      <input name="idUserInput" hidden>
 
-    <div class="tableRow">
-    <p><label>Card number&ensp;&ensp;</label></p>
-    <p><input name="cardnumberinput"></p>
-    </div>
+      <div class="tableRow">
+        <p><label>Card number&ensp;&ensp;</label></p>
+        <p><input name="cardnumberinput"></p>
+      </div>
 
-    <div class="tableRow">
-    <p><label>CVV code&ensp;&ensp;</label></p> 
-    <p><input name="cvvcodeinput"></p>
-    </div>
+      <div class="tableRow">
+        <p><label>CVV code&ensp;&ensp;</label></p>
+        <p><input name="cvvcodeinput"></p>
+      </div>
 
-    <div class="tableRow">
-    <p><label>Sum&ensp;&ensp;</label></p> 
-    <p><input name="suminput"></p>
-    </div>
+      <div class="tableRow">
+        <p><label>Sum&ensp;&ensp;</label></p>
+        <p><input name="suminput"></p>
+      </div>
 
-<div class="tableRow">
-  <p></p>
-    <p><input type="submit" value='Confirm' class="style-buttons-forms"></p>
-    </div>
-  </form>
-</div>
+      <div class="tableRow">
+        <p></p>
+        <p><input type="submit" value='Confirm' class="style-buttons-forms"></p>
+      </div>
+    </form>
+  </div>
 
 
 
- <script src="../scripts/common-functions.js"></script>
+  <script src="../scripts/common-functions.js"></script>
   <script src="../../scripts/mycookie.js"></script>
   <script>
     'use strict';
@@ -87,23 +86,23 @@
       });
 
       let result = await response;
-      
+
       if (result.status == 200) {
-      let totSum = await result.json();
-      totSum = totSum[0].credit;
-      deleteCookie('credit');
-      setCookie('credit', totSum, { 'max-age': 3600 });
-      document.querySelector("#result-op").innerHTML = `operation Completed. your value is ${totSum}`;
+        let totSum = await result.json();
+        totSum = totSum[0].credit;
+        deleteCookie('credit');
+        setCookie('credit', totSum, { 'max-age': 3600 });
+        document.querySelector("#result-op").innerHTML = `operation Completed. your value is ${totSum}`;
       } else {
         document.querySelector("#result-op").innerHTML = 'error. try again, please';
       }
-//если у меня выскакивает ошибка, то проверить куки, записалось ли айди в форму
+      //если у меня выскакивает ошибка, то проверить куки, записалось ли айди в форму
     }
 
 
-body.addEventListener('click', function () {
-  cleanHtmlCommonF(["#result-op"]);
-})
+    body.addEventListener('click', function () {
+      cleanHtmlCommonF(["#result-op"]);
+    })
 
 
 
