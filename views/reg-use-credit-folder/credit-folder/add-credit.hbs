@@ -35,17 +35,35 @@
 
       <div class="tableRow">
         <p><label>Card number&ensp;&ensp;</label></p>
-        <p><input name="cardnumberinput"></p>
+        <p><input name="cardnumberinput" id="cardnumberinput" oninput="verifyNumberCardInputCommon('#cardnumberinput')">
+        </p>
+      </div>
+
+      <div class="tableRow result-checking-reg">
+        <p></p>
+        <p id="card-number-error-frase"></p>
       </div>
 
       <div class="tableRow">
         <p><label>CVV code&ensp;&ensp;</label></p>
-        <p><input name="cvvcodeinput"></p>
+        <p><input name="cvvcodeinput" id="cvvcodeinput"></p> 
+        {{!-- type="number"
+            oninput="verifycvvNumberInputCommon('#cvvcodeinput')"></p> --}}
+      </div>
+
+      <div class="tableRow result-checking-reg">
+        <p></p>
+        <p id="cvvcode-error-frase"></p>
       </div>
 
       <div class="tableRow">
         <p><label>Sum&ensp;&ensp;</label></p>
-        <p><input name="suminput"></p>
+        <p><input name="suminput" type="number"></p>
+      </div>
+
+      <div class="tableRow result-checking-reg">
+        <p></p>
+        <p id="sum-error-frase"></p>
       </div>
 
       <div class="tableRow">
@@ -55,8 +73,7 @@
     </form>
   </div>
 
-
-
+  <script src="../scripts/reg-exp-common.js"></script>
   <script src="../scripts/common-functions.js"></script>
   <script src="../../scripts/mycookie.js"></script>
   <script>
@@ -64,17 +81,36 @@
 
     function activateForm() {
       let creditForm = document.forms.creditform;
-      creditForm.elements.idUserInput.value
-        = getCookie('id');
-      creditForm.addEventListener('submit', sendCreditInfo)
+      creditForm.elements.idUserInput.value = getCookie('id');
+      creditForm.addEventListener('submit', sendCreditInfo);
     }
     activateForm()
 
+    document.body.addEventListener('click', () => {
+      cleanHtmlCommonF(['#card-number-error-frase', '#cvvcode-error-frase', '#sum-error-frase']);
+    })
+
     async function sendCreditInfo(e) {
-      e.preventDefault()
+      e.preventDefault();
 
       const formData = new FormData(document.forms.creditform);
       const plainFormData = Object.fromEntries(formData.entries());
+      let checkCardNumber = checkCardNumberCommon(plainFormData.cardnumberinput);
+      let cvvCode = checkcvvCodeCommon(plainFormData.cvvcodeinput);
+      let sumToAdd = checkSumCommon(plainFormData.suminput);
+
+      if (checkCardNumber) {
+        document.querySelector('#card-number-error-frase').innerHTML = checkCardNumber;
+        return;
+      } else if (cvvCode) {
+        {{!-- document.querySelector('#cvvcode-error-frase').innerHTML = cvvCode;
+        return; --}}
+      } else if (sumToAdd) {
+        document.querySelector('#sum-error-frase').innerHTML = sumToAdd;
+        return;
+      }
+
+
       const formDataJsonString = JSON.stringify(plainFormData);
 
       let response = await fetch('/addCredit', {

@@ -6,12 +6,12 @@ const jsonParser = bodyParser.json();
 const mysql = require("mysql2");
 const fs = require('fs');
 
+const inputValidator = require("./modules-functions/reg-exp-input-validator");
+
+
 const laptopRouter = express.Router();
 const cell_phoneRouter = express.Router();
 const userRouter = express.Router();
-
-
-
 
 const hbs = require("hbs");
 app.set('/view engine', 'hbs');
@@ -33,7 +33,9 @@ app.use("/userpage", userRouter);
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', (req, res) => {
-  res.render('index.hbs');
+  res.render('index.hbs', {
+    title: 'eCommerce Website'
+  });
 });
 
 userRouter.get('/', (req, res) => {
@@ -79,9 +81,17 @@ app.post('/registration', jsonParser, (req, res) => {
   });
 });
 
+
+
 app.post('/addCredit', jsonParser, (req, res) => {
   if (!req.body) res.sendStatus(400);
+  
   let b = req.body;
+  console.log(b)
+  if ( inputValidator.cvvCodeValidator(b.cvvcodeinput)) {
+    res.sendStatus(400)
+ return;
+  }
   pool.query('update users set credit = credit + ? where id=?', [b.suminput, b.idUserInput], (err, inf) => {
     if (err) {
       res.sendStatus(500);

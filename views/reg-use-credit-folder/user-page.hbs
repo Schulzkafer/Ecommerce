@@ -134,16 +134,13 @@
 
         <div class="tableRow">
           <p><label>New password&ensp;&ensp;</label></p>
-          <p><input type="password" name="newpassword" id="new-password" autocomplete="off"
-              placeholder="Password must be between 5 and 20 characters" required><i
-              class="fas fa-eye show-password-commonCSS"></i></p>
+          <p><input type="password" name="newpassword" id="new-password" autocomplete="off" required><i class="fas fa-eye show-password-commonCSS"></i></p>
         </div>
 
         <div class="tableRow result-checking-reg">
           <p></p>
           <p id="new-password-error-frase"></p>
         </div>
-
 
         <div class="tableRow">
           <p></p>
@@ -157,15 +154,25 @@
       <h3 id="result-changing-frase"></h3>
       <form id="profile-form-changing" name="profileformchanging" class="regulation-label-form">
         <p><input name="idUser" hidden></p>
-
+{{!-- ////////////////////////////////////////////////////////// --}}
         <div class="tableRow">
           <p><label>New email&ensp;&ensp;</label></p>
           <p><input name="changeemail"></p>
         </div>
 
+  <div class="tableRow result-checking-reg">
+          <p></p>
+          <p id="new-email-error-frase"></p>
+        </div>
+
         <div class="tableRow">
           <p><label>New name&ensp;&ensp;</label></p>
           <p><input name="changename"></p>
+        </div>
+         
+          <div class="tableRow result-checking-reg">
+          <p></p>
+          <p id="new-name-error-frase"></p>
         </div>
 
         <div class="tableRow">
@@ -173,10 +180,20 @@
           <p><input name="changesurname"></p>
         </div>
 
+  <div class="tableRow result-checking-reg">
+          <p></p>
+          <p id="new-surname-error-frase"></p>
+        </div>
+
         <div class="tableRow">
           <p><label>Password to confirm&ensp;&ensp;</label></p>
           <p><input id="passord-confirm-user-change" name="passwordconfirm" autocomplete="on"><i
               class="fas fa-eye show-password-commonCSS"></i></p>
+        </div>
+
+  <div class="tableRow result-checking-reg">
+          <p></p>
+          <p id="password-confirm-error-frase"></p>
         </div>
 
         <div class="tableRow">
@@ -195,8 +212,9 @@
     'use strict';
 
     body.addEventListener('click', function () {
-      cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase', '#actual-password-error-frase', '#new-password-error-frase']);
-    });
+      cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase', '#actual-password-error-frase', '#new-password-error-frase',
+      "#new-email-error-frase", "#new-name-error-frase", "#new-surname-error-frase", "#password-confirm-error-frase"]);
+      });
 
     Array.from(document.querySelectorAll('.show-password-commonCSS')).forEach(x => x.addEventListener('click', function (e) {
       e.preventDefault();
@@ -329,6 +347,27 @@
       e.preventDefault();
       const formData = new FormData(document.querySelector('#profile-form-changing'));
       const plainFormData = Object.fromEntries(formData.entries());
+console.log(plainFormData)
+
+let checkChangeEmailRes = checkEmailCommon(plainFormData.changeemail);
+let checkChangeNameRes = checkNameSurnameCommon(plainFormData.changename);
+let checkChangeSurnameRes = checkNameSurnameCommon(plainFormData.changesurname);
+let checkPasswordConfirm = checkPasswordCommon(plainFormData.passwordconfirm);
+if (checkChangeEmailRes) {
+document.querySelector('#new-email-error-frase').innerHTML = checkChangeEmailRes;
+return;
+} else if (checkChangeNameRes) {
+  document.querySelector('#new-name-error-frase').innerHTML = 'Name ' + checkChangeNameRes;
+  return;
+} else if (checkChangeSurnameRes) {
+document.querySelector('#new-surname-error-frase').innerHTML = 'Surname ' + checkChangeNameRes;
+  return;
+} else if (checkPasswordConfirm) {
+  document.querySelector('#password-confirm-error-frase').innerHTML = 'You must type your correct password';
+  return;
+}
+ 
+
       const formDataJsonString = JSON.stringify(plainFormData);
 
       let response = await fetch('/changeDataUser', {
