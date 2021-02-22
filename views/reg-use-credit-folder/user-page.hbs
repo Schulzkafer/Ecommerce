@@ -2,402 +2,402 @@
 <html lang="en">
 
 <head>
-  <title>{{title}}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <link href="/styles/direction-line.css" rel="stylesheet">
-  <link href="/styles/common.css" rel="stylesheet">
-  <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #F3DDC3;
-    }
-
-    .to-flex {
-      display: flex;
-      justify-content: center;
-      flex-direction: row;
-    }
-
-    .info-about-user {
-      display: inline-block;
-      width: 50%;
-      padding: 1em;
-      padding-left: 3em;
-      font-size: 1.3em;
-      line-height: 1.5em;
-      background-color: #F3DDC3;
-      list-style-type: none;
-    }
-
-    .info-about-user ul {
-      list-style-type: none;
-    }
-
-    h2 {
-      margin-bottom: 0.5em;
-      white-space: nowrap;
-    }
-
-    #to-do-table {
-      display: table;
-      white-space: nowrap;
-    }
-
-    #to-do-table li {
-      display: table-row;
-    }
-
-    #to-do-table li p {
-      display: table-cell;
-    }
-
-    #to-do-table li p:first-child {
-      text-align: right;
-    }
-
-    #painel-buttons {
-      margin-top: 1em;
-      display: flex;
-    }
-
-    #painel-buttons button {
-      margin-right: 1em;
-      min-width: 100px;
-    }
-
-    @media screen and (max-width: 560px) {
-      .to-flex {
-        flex-direction: column;
-        justify-content: start;
+   <title>{{title}}</title>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+   <link href="/styles/direction-line.css" rel="stylesheet">
+   <link href="/styles/common.css" rel="stylesheet">
+   <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+   <style>
+      * {
+         box-sizing: border-box;
       }
-    }
-  </style>
+
+      body {
+         background-color: #F3DDC3;
+      }
+
+      .to-flex {
+         display: flex;
+         justify-content: center;
+         flex-direction: row;
+      }
+
+      .info-about-user {
+         display: inline-block;
+         width: 50%;
+         padding: 1em;
+         padding-left: 3em;
+         font-size: 1.3em;
+         line-height: 1.5em;
+         background-color: #F3DDC3;
+         list-style-type: none;
+      }
+
+      .info-about-user ul {
+         list-style-type: none;
+      }
+
+      h2 {
+         margin-bottom: 0.5em;
+         white-space: nowrap;
+      }
+
+      #to-do-table {
+         display: table;
+         white-space: nowrap;
+      }
+
+      #to-do-table li {
+         display: table-row;
+      }
+
+      #to-do-table li p {
+         display: table-cell;
+      }
+
+      #to-do-table li p:first-child {
+         text-align: right;
+      }
+
+      #painel-buttons {
+         margin-top: 1em;
+         display: flex;
+      }
+
+      #painel-buttons button {
+         margin-right: 1em;
+         min-width: 100px;
+      }
+
+      @media screen and (max-width: 560px) {
+         .to-flex {
+            flex-direction: column;
+            justify-content: start;
+         }
+      }
+   </style>
 
 </head>
 
 <body>
 
-  {{> directionline}}
+   {{> directionline}}
 
-  <div class='to-flex'>
-    <div class='info-about-user'>
-      <h2>Profile</h2>
-      <ul id="to-do-table">
-        <li>
-          <p>Your email:&ensp;&ensp;</p>
-          <p> <b id="email-user-info"></b></p>
-        </li>
-        <li>
-          <p>Your name:&ensp;&ensp;</p>
-          <p> <b id="name-user-info"></b></p>
-        </li>
-        <li>
-          <p>Your surname:&ensp;&ensp;</p>
-          <p> <b id="surname-user-info"></b></p>
-        </li>
-        <li>
-          <p>Your credit:&ensp;&ensp;</p>
-          <p> <b id="credit-user-info">0.00$</b>
-        </li>
-      </ul>
-      <div id="make-deposit-button"><a href="/userPage/addCredit">Make a deposit</a></div>
+   <div class='to-flex'>
+      <div class='info-about-user'>
+         <h2>Profile</h2>
+         <ul id="to-do-table">
+            <li>
+               <p>Your email:&ensp;&ensp;</p>
+               <p> <b id="email-user-info"></b></p>
+            </li>
+            <li>
+               <p>Your name:&ensp;&ensp;</p>
+               <p> <b id="name-user-info"></b></p>
+            </li>
+            <li>
+               <p>Your surname:&ensp;&ensp;</p>
+               <p> <b id="surname-user-info"></b></p>
+            </li>
+            <li>
+               <p>Your credit:&ensp;&ensp;</p>
+               <p> <b id="credit-user-info">0.00$</b>
+            </li>
+         </ul>
+         <div id="make-deposit-button"><a href="/userPage/addCredit">Make a deposit</a></div>
 
-      <div id="painel-buttons">
-        <button onclick="changeUserData('#profile-form-changing')" class='style-buttons-forms'>Change your
-          profile</button>
-        <button onclick="changePassword('#password-form-changing')" class='style-buttons-forms'>Change your
-          password</button>
+         <div id="painel-buttons">
+            <button onclick="changeUserData('#profile-form-changing')" class='style-buttons-forms'>Change your
+               profile</button>
+            <button onclick="changePassword('#password-form-changing')" class='style-buttons-forms'>Change your
+               password</button>
+         </div>
       </div>
-    </div>
 
-    <div class='user-password-to-change pay-form-style-commonCSS'>
-      <h2>Change your password</h2>
-      <h3 id="result-changing-password"></h3>
-      <form id="password-form-changing" name="passwordformchanging" class="regulation-label-form">
-        <p><input name="idUser" hidden></p>
+      <div class='user-password-to-change pay-form-style-commonCSS'>
+         <h2>Change your password</h2>
+         <h3 id="result-changing-password"></h3>
+         <form id="password-form-changing" name="passwordformchanging" class="regulation-label-form">
+            <p><input name="idUser" hidden></p>
 
-        <div class="tableRow">
-          <p><label>Actual password&ensp;&ensp;</label></p>
-          <p><input type="password" autocomplete="off" id="act-password-change-password" name="actpassword" required><i
-              class="fas fa-eye show-password-commonCSS"></i></p>
-        </div>
+            <div class="tableRow">
+               <p><label>Actual password&ensp;&ensp;</label></p>
+               <p><input type="password" autocomplete="off" id="act-password-change-password" name="actpassword"
+                     required><i class="fas fa-eye show-password-commonCSS"></i></p>
+            </div>
 
-        <div class="tableRow result-checking-reg">
-          <p></p>
-          <p id="actual-password-error-frase"></p>
-        </div>
+            <div class="tableRow result-checking-reg">
+               <p></p>
+               <p id="actual-password-error-frase"></p>
+            </div>
 
-        <div class="tableRow">
-          <p><label>New password&ensp;&ensp;</label></p>
-          <p><input type="password" name="newpassword" id="new-password" autocomplete="off" required><i class="fas fa-eye show-password-commonCSS"></i></p>
-        </div>
+            <div class="tableRow">
+               <p><label>New password&ensp;&ensp;</label></p>
+               <p><input type="password" name="newpassword" id="new-password" autocomplete="off" required><i
+                     class="fas fa-eye show-password-commonCSS"></i></p>
+            </div>
 
-        <div class="tableRow result-checking-reg">
-          <p></p>
-          <p id="new-password-error-frase"></p>
-        </div>
+            <div class="tableRow result-checking-reg">
+               <p></p>
+               <p id="new-password-error-frase"></p>
+            </div>
 
-        <div class="tableRow">
-          <p></p>
-          <p><input type="submit" value="Save" class="style-buttons-forms" style="margin-top: 1.6em;"></p>
-        </div>
-      </form>
-    </div>
+            <div class="tableRow">
+               <p></p>
+               <p><input type="submit" value="Save" class="style-buttons-forms" style="margin-top: 1.6em;"></p>
+            </div>
+         </form>
+      </div>
 
-    <div class='info-about-user-to-change pay-form-style-commonCSS'>
-      <h2>Change your profile</h2>
-      <h3 id="result-changing-frase"></h3>
-      <form id="profile-form-changing" name="profileformchanging" class="regulation-label-form">
-        <p><input name="idUser" hidden></p>
-{{!-- ////////////////////////////////////////////////////////// --}}
-        <div class="tableRow">
-          <p><label>New email&ensp;&ensp;</label></p>
-          <p><input name="changeemail"></p>
-        </div>
+      <div class='info-about-user-to-change pay-form-style-commonCSS'>
+         <h2>Change your profile</h2>
+         <h3 id="result-changing-frase"></h3>
+         <form id="profile-form-changing" name="profileformchanging" class="regulation-label-form">
+            <p><input name="idUser" hidden></p>
+            {{!-- ////////////////////////////////////////////////////////// --}}
+            <div class="tableRow">
+               <p><label>New email&ensp;&ensp;</label></p>
+               <p><input name="changeemail"></p>
+            </div>
 
-  <div class="tableRow result-checking-reg">
-          <p></p>
-          <p id="new-email-error-frase"></p>
-        </div>
+            <div class="tableRow result-checking-reg">
+               <p></p>
+               <p id="new-email-error-frase"></p>
+            </div>
 
-        <div class="tableRow">
-          <p><label>New name&ensp;&ensp;</label></p>
-          <p><input name="changename"></p>
-        </div>
-         
-          <div class="tableRow result-checking-reg">
-          <p></p>
-          <p id="new-name-error-frase"></p>
-        </div>
+            <div class="tableRow">
+               <p><label>New name&ensp;&ensp;</label></p>
+               <p><input name="changename"></p>
+            </div>
 
-        <div class="tableRow">
-          <p><label>New surname&ensp;&ensp;</label></p>
-          <p><input name="changesurname"></p>
-        </div>
+            <div class="tableRow result-checking-reg">
+               <p></p>
+               <p id="new-name-error-frase"></p>
+            </div>
 
-  <div class="tableRow result-checking-reg">
-          <p></p>
-          <p id="new-surname-error-frase"></p>
-        </div>
+            <div class="tableRow">
+               <p><label>New surname&ensp;&ensp;</label></p>
+               <p><input name="changesurname"></p>
+            </div>
 
-        <div class="tableRow">
-          <p><label>Password to confirm&ensp;&ensp;</label></p>
-          <p><input id="passord-confirm-user-change" name="passwordconfirm" autocomplete="on"><i
-              class="fas fa-eye show-password-commonCSS"></i></p>
-        </div>
+            <div class="tableRow result-checking-reg">
+               <p></p>
+               <p id="new-surname-error-frase"></p>
+            </div>
 
-  <div class="tableRow result-checking-reg">
-          <p></p>
-          <p id="password-confirm-error-frase"></p>
-        </div>
+            <div class="tableRow">
+               <p><label>Password to confirm&ensp;&ensp;</label></p>
+               <p><input id="passord-confirm-user-change" name="passwordconfirm" autocomplete="on"><i
+                     class="fas fa-eye show-password-commonCSS"></i></p>
+            </div>
 
-        <div class="tableRow">
-          <p></p>
-          <p><input type="submit" value="Save" class="style-buttons-forms" style="margin-top: 1.6em;"></p>
-        </div>
-      </form>
-    </div>
+            <div class="tableRow result-checking-reg">
+               <p></p>
+               <p id="password-confirm-error-frase"></p>
+            </div>
 
-  </div>
+            <div class="tableRow">
+               <p></p>
+               <p><input type="submit" value="Save" class="style-buttons-forms" style="margin-top: 1.6em;"></p>
+            </div>
+         </form>
+      </div>
 
-  <script src="/scripts/common-functions.js"></script>
-  <script src="../../scripts/mycookie.js"></script>
-  <script src="../../scripts/reg-exp-common.js"></script>
-  <script>
-    'use strict';
+   </div>
 
-    body.addEventListener('click', function () {
-      cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase', '#actual-password-error-frase', '#new-password-error-frase',
-      "#new-email-error-frase", "#new-name-error-frase", "#new-surname-error-frase", "#password-confirm-error-frase"]);
+   <script src="/scripts/common-functions.js"></script>
+   <script src="../../scripts/mycookie.js"></script>
+   <script src="../../scripts/reg-exp-common.js"></script>
+   <script>
+      'use strict';
+
+      body.addEventListener('click', function () {
+         cleanHtmlCommonF(['#result-changing-password', '#result-changing-frase', '#actual-password-error-frase', '#new-password-error-frase',
+            "#new-email-error-frase", "#new-name-error-frase", "#new-surname-error-frase", "#password-confirm-error-frase"]);
       });
 
-    Array.from(document.querySelectorAll('.show-password-commonCSS')).forEach(x => x.addEventListener('click', function (e) {
-      e.preventDefault();
-      showPasswordCommonF(this.previousElementSibling.id);
-    }))
+      Array.from(document.querySelectorAll('.show-password-commonCSS')).forEach(x => x.addEventListener('click', function (e) {
+         e.preventDefault();
+         showPasswordCommonF(this.previousElementSibling.id);
+      }))
 
-    function setSizeAndVisibility() {
-      let pas = document.querySelector('.user-password-to-change');
-      let inform = document.querySelector('.info-about-user-to-change');
-      pas.style.visibility = 'hidden';
-      pas.style.width = 0;
-      pas.style.height = 0;
-      inform.style.visibility = 'hidden';
-      inform.style.width = 0;
-      inform.style.height = 0;
-    }
-
-    setSizeAndVisibility()
-
-    function completeUserInformation() {
-      let emailUserInfo = document.querySelector('#email-user-info');
-      emailUserInfo.innerHTML = getCookie('email');
-
-      let nameUserInfo = document.querySelector('#name-user-info');
-      nameUserInfo.innerHTML = getCookie('name') || '';
-
-      let surNameUserInfo = document.querySelector('#surname-user-info');
-      surNameUserInfo.innerHTML = getCookie('surname') || '';
-
-      let creditUserInfo = document.querySelector("#credit-user-info");
-      creditUserInfo.innerHTML = getCookie('credit');
-    }
-
-    completeUserInformation()
-
-    function changePassword(arg) {
-      let infpas = document.querySelector('.user-password-to-change');
-      if (infpas.style.visibility == 'hidden') {
-        infpas.style.visibility = 'visible';
-        infpas.style.width = '50%';
-        document.querySelector('.info-about-user-to-change').style.visibility = 'hidden';
-        document.querySelector('.info-about-user-to-change').style.height = 0;
-        document.querySelector('.info-about-user-to-change').style.width = 0;
-      } else {
-        infpas.style.visibility = 'hidden';
-        infpas.style.width = 0;
-      }
-      let formPassword = document.forms.passwordformchanging;
-      if (infpas.style.visibility == 'hidden') {
-        formPassword.removeEventListener('submit', sendPasswordChanging);
-        return;
-      }
-      formPassword.elements.idUser.value = getCookie('id');
-
-      formPassword.addEventListener('submit', sendPasswordChanging);
-    }
-
-    async function sendPasswordChanging(e) {
-      e.preventDefault();
-      let formInAction = document.querySelector('#password-form-changing');
-      const formData = new FormData(formInAction);
-      const plainFormData = Object.fromEntries(formData.entries());
-      if (checkPasswordCommon(plainFormData.actpassword)) {
-        document.querySelector('#actual-password-error-frase').innerHTML = 'You must type your correct password';
-        return;
+      function setSizeAndVisibility() {
+         let pas = document.querySelector('.user-password-to-change');
+         let inform = document.querySelector('.info-about-user-to-change');
+         pas.style.visibility = 'hidden';
+         pas.style.width = 0;
+         pas.style.height = 0;
+         inform.style.visibility = 'hidden';
+         inform.style.width = 0;
+         inform.style.height = 0;
       }
 
-      let regNewPassword = checkPasswordCommon(plainFormData.newpassword);
-      if (regNewPassword) {
-        document.querySelector('#new-password-error-frase').innerHTML = regNewPassword;
-        return;
+      setSizeAndVisibility()
+
+      function completeUserInformation() {
+         let emailUserInfo = document.querySelector('#email-user-info');
+         emailUserInfo.innerHTML = getCookie('email');
+
+         let nameUserInfo = document.querySelector('#name-user-info');
+         nameUserInfo.innerHTML = getCookie('name') || '';
+
+         let surNameUserInfo = document.querySelector('#surname-user-info');
+         surNameUserInfo.innerHTML = getCookie('surname') || '';
+
+         let creditUserInfo = document.querySelector("#credit-user-info");
+         creditUserInfo.innerHTML = getCookie('credit');
       }
 
-      const formDataJsonString = JSON.stringify(plainFormData);
-      let response = await fetch('/changePassword', {
-        method: 'PUT',
-        body: formDataJsonString,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
+      completeUserInformation()
 
-      let result = await response;
-      let fieldResultPasswordChanging = document.querySelector('#result-changing-password');
-      if (result.status == 400) {
-        fieldResultPasswordChanging.innerHTML = 'Bad Request';
-        fieldResultPasswordChanging.style.color = 'red';
-      }
-      else if (result.status == 500) {
-        fieldResultPasswordChanging.innerHTML = 'Server error, try again, please';
-        fieldResultPasswordChanging.style.color = 'yellow';
-      }
-      else if (result.status == 200) {
-        fieldResultPasswordChanging.innerHTML = 'The operation completed successfully';
-        fieldResultPasswordChanging.style.color = 'green';
-        formInAction.elements.actpassword.value = '';
-        formInAction.elements.newpassword.value = '';
-      }
-    }
+      function changePassword(arg) {
+         let infpas = document.querySelector('.user-password-to-change');
+         if (infpas.style.visibility == 'hidden') {
+            infpas.style.visibility = 'visible';
+            infpas.style.width = '50%';
+            document.querySelector('.info-about-user-to-change').style.visibility = 'hidden';
+            document.querySelector('.info-about-user-to-change').style.height = 0;
+            document.querySelector('.info-about-user-to-change').style.width = 0;
+         } else {
+            infpas.style.visibility = 'hidden';
+            infpas.style.width = 0;
+         }
+         let formPassword = document.forms.passwordformchanging;
+         if (infpas.style.visibility == 'hidden') {
+            formPassword.removeEventListener('submit', sendPasswordChanging);
+            return;
+         }
+         formPassword.elements.idUser.value = getCookie('id');
 
-    function changeUserData(arg) {
-      let inf = document.querySelector('.info-about-user-to-change');
-      if (inf.style.visibility == 'hidden') {
-        inf.style.visibility = 'visible';
-        inf.style.width = '50%';
-        document.querySelector('.user-password-to-change').style.visibility = 'hidden';
-        document.querySelector('.user-password-to-change').style.height = 0;
-        document.querySelector('.user-password-to-change').style.width = 0;
-      } else {
-        inf.style.visibility = 'hidden';
-        inf.style.width = 0;
-        inf.style.height = 0;
-      }
-      if (inf.style.visibility == 'hidden') {
-        document.querySelector('#profile-form-changing').removeEventListener('submit', sendUserInfoToChange);
-        return;
+         formPassword.addEventListener('submit', sendPasswordChanging);
       }
 
-      let formToComplete = document.forms.profileformchanging;
-      formToComplete.elements.idUser.value = getCookie('id')
-      formToComplete.elements.changeemail.value = document.querySelector('#email-user-info').innerHTML;
-      formToComplete.elements.changename.value = document.querySelector('#name-user-info').innerHTML;
-      formToComplete.elements.changesurname.value = document.querySelector('#surname-user-info').innerHTML;
+      async function sendPasswordChanging(e) {
+         e.preventDefault();
+         let formInAction = document.querySelector('#password-form-changing');
+         const formData = new FormData(formInAction);
+         const plainFormData = Object.fromEntries(formData.entries());
+         if (checkPasswordCommon(plainFormData.actpassword)) {
+            document.querySelector('#actual-password-error-frase').innerHTML = 'You must type your correct password';
+            return;
+         }
 
-      let sendChangingData = document.querySelector('#send-changing-data');
-      document.querySelector('#profile-form-changing').addEventListener('submit', sendUserInfoToChange);
-    }
+         let regNewPassword = checkPasswordCommon(plainFormData.newpassword);
+         if (regNewPassword) {
+            document.querySelector('#new-password-error-frase').innerHTML = regNewPassword;
+            return;
+         }
 
-    async function sendUserInfoToChange(e) {
-      e.preventDefault();
-      const formData = new FormData(document.querySelector('#profile-form-changing'));
-      const plainFormData = Object.fromEntries(formData.entries());
-console.log(plainFormData)
+         const formDataJsonString = JSON.stringify(plainFormData);
+         let response = await fetch('/changePassword', {
+            method: 'PUT',
+            body: formDataJsonString,
+            headers: {
+               'Content-Type': 'application/json'
+            }
+         });
 
-let checkChangeEmailRes = checkEmailCommon(plainFormData.changeemail);
-let checkChangeNameRes = checkNameSurnameCommon(plainFormData.changename);
-let checkChangeSurnameRes = checkNameSurnameCommon(plainFormData.changesurname);
-let checkPasswordConfirm = checkPasswordCommon(plainFormData.passwordconfirm);
-if (checkChangeEmailRes) {
-document.querySelector('#new-email-error-frase').innerHTML = checkChangeEmailRes;
-return;
-} else if (checkChangeNameRes) {
-  document.querySelector('#new-name-error-frase').innerHTML = 'Name ' + checkChangeNameRes;
-  return;
-} else if (checkChangeSurnameRes) {
-document.querySelector('#new-surname-error-frase').innerHTML = 'Surname ' + checkChangeNameRes;
-  return;
-} else if (checkPasswordConfirm) {
-  document.querySelector('#password-confirm-error-frase').innerHTML = 'You must type your correct password';
-  return;
-}
- 
-
-      const formDataJsonString = JSON.stringify(plainFormData);
-
-      let response = await fetch('/changeDataUser', {
-        method: 'PUT',
-        body: formDataJsonString,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      let result = await response;
-      let resultChangingFrase = document.querySelector('#result-changing-frase');
-      if (result.status == 400 || result.status == 401) {
-        resultChangingFrase.innerHTML = 'Bad request';
-        resultChangingFrase.style.color = 'red';
-      } else if (result.status == 500) {
-        resultChangingFrase.innerHTML = 'Server error, try again, please';
-        resultChangingFrase.style.color = 'yellow';
-      } else if (result.status == 200) {
-        resultChangingFrase.innerHTML = 'The operation completed successfully';
-        resultChangingFrase.style.color = 'green';
-        let res = await result.json();
-        setCookie('name', res.changename, { 'max-age': 3600 });
-        setCookie('surname', res.changesurname, { 'max-age': 3600 });
-        if (res.changeemail != '') setCookie('email', res.changeemail, { 'max-age': 3600 });
-        completeUserInformation()
+         let result = await response;
+         let fieldResultPasswordChanging = document.querySelector('#result-changing-password');
+         if (result.status == 400) {
+            fieldResultPasswordChanging.innerHTML = 'Bad Request';
+            fieldResultPasswordChanging.style.color = 'red';
+         }
+         else if (result.status == 500) {
+            fieldResultPasswordChanging.innerHTML = 'Server error, try again, please';
+            fieldResultPasswordChanging.style.color = 'yellow';
+         }
+         else if (result.status == 200) {
+            fieldResultPasswordChanging.innerHTML = 'The operation completed successfully';
+            fieldResultPasswordChanging.style.color = 'green';
+            formInAction.elements.actpassword.value = '';
+            formInAction.elements.newpassword.value = '';
+         }
       }
-    }
 
-  </script>
+      function changeUserData(arg) {
+         let inf = document.querySelector('.info-about-user-to-change');
+         if (inf.style.visibility == 'hidden') {
+            inf.style.visibility = 'visible';
+            inf.style.width = '50%';
+            document.querySelector('.user-password-to-change').style.visibility = 'hidden';
+            document.querySelector('.user-password-to-change').style.height = 0;
+            document.querySelector('.user-password-to-change').style.width = 0;
+         } else {
+            inf.style.visibility = 'hidden';
+            inf.style.width = 0;
+            inf.style.height = 0;
+         }
+         if (inf.style.visibility == 'hidden') {
+            document.querySelector('#profile-form-changing').removeEventListener('submit', sendUserInfoToChange);
+            return;
+         }
+
+         let formToComplete = document.forms.profileformchanging;
+         formToComplete.elements.idUser.value = getCookie('id')
+         formToComplete.elements.changeemail.value = document.querySelector('#email-user-info').innerHTML;
+         formToComplete.elements.changename.value = document.querySelector('#name-user-info').innerHTML;
+         formToComplete.elements.changesurname.value = document.querySelector('#surname-user-info').innerHTML;
+
+         let sendChangingData = document.querySelector('#send-changing-data');
+         document.querySelector('#profile-form-changing').addEventListener('submit', sendUserInfoToChange);
+      }
+
+      async function sendUserInfoToChange(e) {
+         e.preventDefault();
+         const formData = new FormData(document.querySelector('#profile-form-changing'));
+         const plainFormData = Object.fromEntries(formData.entries());
+
+         let checkChangeEmailRes = checkEmailCommon(plainFormData.changeemail);
+         let checkChangeNameRes = checkNameSurnameCommon(plainFormData.changename);
+         let checkChangeSurnameRes = checkNameSurnameCommon(plainFormData.changesurname);
+         let checkPasswordConfirm = checkPasswordCommon(plainFormData.passwordconfirm);
+         if (checkChangeEmailRes) {
+            document.querySelector('#new-email-error-frase').innerHTML = checkChangeEmailRes;
+            return;
+         } else if (checkChangeNameRes) {
+            document.querySelector('#new-name-error-frase').innerHTML = 'Name ' + checkChangeNameRes;
+            return;
+         } else if (checkChangeSurnameRes) {
+            document.querySelector('#new-surname-error-frase').innerHTML = 'Surname ' + checkChangeNameRes;
+            return;
+         } else if (checkPasswordConfirm) {
+            document.querySelector('#password-confirm-error-frase').innerHTML = 'You must type your correct password';
+            return;
+         }
+
+
+         const formDataJsonString = JSON.stringify(plainFormData);
+
+         let response = await fetch('/changeDataUser', {
+            method: 'PUT',
+            body: formDataJsonString,
+            headers: {
+               'Content-Type': 'application/json'
+            }
+         });
+
+         let result = await response;
+         let resultChangingFrase = document.querySelector('#result-changing-frase');
+         if (result.status == 400 || result.status == 401) {
+            resultChangingFrase.innerHTML = 'Bad request';
+            resultChangingFrase.style.color = 'red';
+         } else if (result.status == 500) {
+            resultChangingFrase.innerHTML = 'Server error, try again, please';
+            resultChangingFrase.style.color = 'yellow';
+         } else if (result.status == 200) {
+            resultChangingFrase.innerHTML = 'The operation completed successfully';
+            resultChangingFrase.style.color = 'green';
+            let res = await result.json();
+            setCookie('name', res.changename, { 'max-age': 2.592e+6 });
+            setCookie('surname', res.changesurname, { 'max-age': 2.592e+6 });
+            if (res.changeemail != '') setCookie('email', res.changeemail, { 'max-age': 2.592e+6 });
+            completeUserInformation()
+         }
+      }
+
+   </script>
 </body>
 
 </html>

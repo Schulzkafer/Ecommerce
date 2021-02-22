@@ -6,7 +6,7 @@ const jsonParser = bodyParser.json();
 const mysql = require("mysql2");
 const fs = require('fs');
 
-const inputValidator = require("./modules-functions/reg-exp-input-validator");
+const inputValidator = require("./modules-functions/reg-exp-server-validator");
 
 const laptopRouter = express.Router();
 const cell_phoneRouter = express.Router();
@@ -39,13 +39,15 @@ app.get('/', (req, res) => {
 
 userRouter.get('/', (req, res) => {
    res.render('reg-use-credit-folder/user-page.hbs', {
-      title: 'User Page Profile'
+      title: 'User Page Profile',
+      link: '../'
    });
 });
 
 userRouter.get('/addCredit', (req, res) => {
    res.render('reg-use-credit-folder/credit-folder/add-credit.hbs', {
-      title: 'Add Funds Page'
+      title: 'Add Funds Page',
+      link: '../userpage'
    });
 });
 
@@ -84,25 +86,24 @@ app.post('/registration', jsonParser, (req, res) => {
 
 app.post('/addCredit', jsonParser, (req, res) => {
    if (!req.body) res.sendStatus(400);
-
    let b = req.body;
-   console.log(b)
-   if (!b.idUserInput || b.idUserInput.length == 0) res.sendStatus(500)
-   if (inputValidator.cvvCodeValidator(b.cardnumberinput) || inputValidator.cvvCodeValidator(b.cvvcodeinput) || inputValidator.cvvCodeValidator(b.suminput)) {
-      res.sendStatus(400)
+   if (!b.idUserInput || !b.idUserInput.length) {
+      res.sendStatus(500);
+      return;
+   }
+   if (inputValidator.checkCardNumberCommon(b.cardnumberinput) || inputValidator.cvvCodeValidator(b.cvvcodeinput) || inputValidator.checkSumCommon(b.suminput)) {
+      res.sendStatus(400);
       return;
    }
    pool.query('update users set credit = credit + ? where id=?', [b.suminput, b.idUserInput], (err, inf) => {
       if (err) {
          res.sendStatus(500);
-         return
+         return;
       }
 
       pool.query('select credit from users where id=?', [b.idUserInput], (erro, info, fields) => {
-         console.log(info)
          if (erro) res.sendStatus(500)
          else res.status(200).send(JSON.stringify(info))
-
       });
    });
 
@@ -112,6 +113,16 @@ app.post('/addCredit', jsonParser, (req, res) => {
 app.put('/changeDataUser', jsonParser, (req, res) => {
    if (!req.body) res.sendStatus(400);
    let b = req.body;
+   if (!b.idUser || !b.idUser.length) {
+      res.sendStatus(500);
+      return;
+   }
+
+   if (inputValidator.checkEmailCommon(b.changeemail) || inputValidator.checkNameSurnameCommon(b.changename) || inputValidator.checkNameSurnameCommon(b.changesurname) || inputValidator.checkPasswordCommon(b.passwordconfirm)) {
+      res.sendStatus(400);
+      return;
+   }
+
    pool.query('update users set email=?, name=?, surname=? where id=? and password=?', [b.changeemail || null, b.changename, b.changesurname, b.idUser, b.passwordconfirm], (error, data) => {
 
       if (error) res.sendStatus(500);
@@ -126,6 +137,16 @@ app.put('/changeDataUser', jsonParser, (req, res) => {
 app.put('/changePassword', jsonParser, (req, res) => {
    if (!req.body) res.sendStatus(400);
    let b = req.body;
+   if (!b.idUser || !b.idUser.length) {
+      res.sendStatus(500);
+      return;
+   }
+
+   if (inputValidator.checkPasswordCommon(b.actpassword) || inputValidator.checkPasswordCommon(b.newpassword)) {
+      res.sendStatus(400);
+      return;
+   }
+
    pool.query('update users set password=? where id=? and password=?', [b.newpassword, b.idUser, b.actpassword], (error, data) => {
       if (error) res.sendStatus(500);
       else if (data.affectedRows == 0 && data.changedRows == 0) res.sendStatus(400);

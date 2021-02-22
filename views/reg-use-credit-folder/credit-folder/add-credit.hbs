@@ -2,22 +2,22 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>{{title}}</title>
-  <link href="../styles/direction-line.css" rel="stylesheet">
-  <link href="../../styles/common.css" rel="stylesheet">
-  <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
+   <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width">
+   <title>{{title}}</title>
+   <link href="../styles/direction-line.css" rel="stylesheet">
+   <link href="../../styles/common.css" rel="stylesheet">
+   <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+   <style>
+      * {
+         box-sizing: border-box;
+      }
 
-    body {
-      background-color: #F3DDC3;
-    }
-  </style>
+      body {
+         background-color: #F3DDC3;
+      }
+   </style>
 
 
 </head>
@@ -25,125 +25,129 @@
 <body>
 
 
-  {{> directionline}}
+   {{> directionline}}
 
-  <div class="pay-form-style-commonCSS">
-    <h2>Payment form</h2>
-    <h3 id="result-op"></h3>
-    <form name="creditform" method="POST" class="regulation-label-form">
-      <input name="idUserInput" hidden>
+   <div class="pay-form-style-commonCSS">
+      <h2>Payment form</h2>
+      <h3 id="result-op"></h3>
+      <form name="creditform" method="POST" class="regulation-label-form">
+         <input name="idUserInput" hidden>
 
-      <div class="tableRow">
-        <p><label>Card number&ensp;&ensp;</label></p>
-        <p><input name="cardnumberinput" id="cardnumberinput" oninput="verifyNumberCardInputCommon('#cardnumberinput')">
-        </p>
-      </div>
+         <div class="tableRow">
+            <p><label>Card number&ensp;&ensp;</label></p>
+            <p><input name="cardnumberinput" id="cardnumberinput"
+                  oninput="verifyNumberCardInputCommon('#cardnumberinput')">
+            </p>
+         </div>
 
-      <div class="tableRow result-checking-reg">
-        <p></p>
-        <p id="card-number-error-frase"></p>
-      </div>
+         <div class="tableRow result-checking-reg">
+            <p></p>
+            <p id="card-number-error-frase"></p>
+         </div>
 
-      <div class="tableRow">
-        <p><label>CVV code&ensp;&ensp;</label></p>
-        <p><input name="cvvcodeinput" id="cvvcodeinput"></p> 
-        {{!-- type="number"
-            oninput="verifycvvNumberInputCommon('#cvvcodeinput')"></p> --}}
-      </div>
+         <div class="tableRow">
+            <p><label>CVV code&ensp;&ensp;</label></p>
+            <p><input name="cvvcodeinput" id="cvvcodeinput"></p>
+         </div>
 
-      <div class="tableRow result-checking-reg">
-        <p></p>
-        <p id="cvvcode-error-frase"></p>
-      </div>
+         <div class="tableRow result-checking-reg">
+            <p></p>
+            <p id="cvvcode-error-frase"></p>
+         </div>
 
-      <div class="tableRow">
-        <p><label>Sum&ensp;&ensp;</label></p>
-        <p><input name="suminput" type="number"></p>
-      </div>
+         <div class="tableRow">
+            <p><label>Sum&ensp;&ensp;</label></p>
+            <p><input name="suminput" type="number"></p>
+         </div>
 
-      <div class="tableRow result-checking-reg">
-        <p></p>
-        <p id="sum-error-frase"></p>
-      </div>
+         <div class="tableRow result-checking-reg">
+            <p></p>
+            <p id="sum-error-frase"></p>
+         </div>
 
-      <div class="tableRow">
-        <p></p>
-        <p><input type="submit" value='Confirm' class="style-buttons-forms"></p>
-      </div>
-    </form>
-  </div>
+         <div class="tableRow">
+            <p></p>
+            <p><input type="submit" value='Confirm' class="style-buttons-forms"></p>
+         </div>
+      </form>
+   </div>
 
-  <script src="../scripts/reg-exp-common.js"></script>
-  <script src="../scripts/common-functions.js"></script>
-  <script src="../../scripts/mycookie.js"></script>
-  <script>
-    'use strict';
+   <script src="../scripts/reg-exp-common.js"></script>
+   <script src="../scripts/common-functions.js"></script>
+   <script src="../../scripts/mycookie.js"></script>
+   <script>
+      'use strict';
 
-    function activateForm() {
-      let creditForm = document.forms.creditform;
-      creditForm.elements.idUserInput.value = getCookie('id');
-      creditForm.addEventListener('submit', sendCreditInfo);
-    }
-    activateForm()
+      function activateForm() {
+         let creditForm = document.forms.creditform;
+         creditForm.elements.idUserInput.value = getCookie('id');
+         creditForm.addEventListener('submit', sendCreditInfo);
+      }
+      activateForm()
 
-    document.body.addEventListener('click', () => {
-      cleanHtmlCommonF(['#card-number-error-frase', '#cvvcode-error-frase', '#sum-error-frase']);
-    })
+      document.body.addEventListener('click', () => {
+         cleanHtmlCommonF(['#card-number-error-frase', '#cvvcode-error-frase', '#sum-error-frase']);
+      })
 
-    async function sendCreditInfo(e) {
-      e.preventDefault();
+      async function sendCreditInfo(e) {
+         e.preventDefault();
 
-      const formData = new FormData(document.forms.creditform);
-      const plainFormData = Object.fromEntries(formData.entries());
-      let checkCardNumber = checkCardNumberCommon(plainFormData.cardnumberinput);
-      let cvvCode = checkcvvCodeCommon(plainFormData.cvvcodeinput);
-      let sumToAdd = checkSumCommon(plainFormData.suminput);
+         const formData = new FormData(document.forms.creditform);
+         const plainFormData = Object.fromEntries(formData.entries());
+         let checkCardNumber = checkCardNumberCommon(plainFormData.cardnumberinput);
+         let cvvCode = checkcvvCodeCommon(plainFormData.cvvcodeinput);
+         let sumToAdd = checkSumCommon(plainFormData.suminput);
 
-      if (checkCardNumber) {
-        document.querySelector('#card-number-error-frase').innerHTML = checkCardNumber;
-        return;
-      } else if (cvvCode) {
-        {{!-- document.querySelector('#cvvcode-error-frase').innerHTML = cvvCode;
-        return; --}}
-      } else if (sumToAdd) {
-        document.querySelector('#sum-error-frase').innerHTML = sumToAdd;
-        return;
+         if (checkCardNumber) {
+            document.querySelector('#card-number-error-frase').innerHTML = checkCardNumber;
+            return;
+         } else if (cvvCode) {
+            document.querySelector('#cvvcode-error-frase').innerHTML = cvvCode;
+            return;
+         } else if (sumToAdd) {
+            document.querySelector('#sum-error-frase').innerHTML = sumToAdd;
+            return;
+         }
+
+
+         const formDataJsonString = JSON.stringify(plainFormData);
+
+         let response = await fetch('/addCredit', {
+            method: 'POST',
+            body: formDataJsonString,
+            headers: {
+               'Content-Type': 'application/json'
+            }
+         });
+
+         let result = await response;
+
+         if (result.status == 200) {
+            let totSum = await result.json();
+            totSum = totSum[0].credit;
+            deleteCookie('credit');
+            setCookie('credit', totSum, { 'max-age': 2.592e+6 });
+            document.querySelector("#result-op").innerHTML = `The operation completed successfully. Your value is ${totSum}`;
+            document.querySelector("#result-op").style.color = 'green';
+         } else if (result.status == 500) {
+            document.querySelector("#result-op").innerHTML = 'Server error, try again, please';
+            document.querySelector("#result-op").style.color = 'yellow';
+         } else if (result.status == 400) {
+            document.querySelector("#result-op").innerHTML = 'Bad request';
+            document.querySelector("#result-op").style.color = 'red';
+         }
+         //если у меня выскакивает ошибка, то проверить куки, записалось ли айди в форму
       }
 
 
-      const formDataJsonString = JSON.stringify(plainFormData);
-
-      let response = await fetch('/addCredit', {
-        method: 'POST',
-        body: formDataJsonString,
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-
-      let result = await response;
-
-      if (result.status == 200) {
-        let totSum = await result.json();
-        totSum = totSum[0].credit;
-        deleteCookie('credit');
-        setCookie('credit', totSum, { 'max-age': 3600 });
-        document.querySelector("#result-op").innerHTML = `operation Completed. your value is ${totSum}`;
-      } else {
-        document.querySelector("#result-op").innerHTML = 'error. try again, please';
-      }
-      //если у меня выскакивает ошибка, то проверить куки, записалось ли айди в форму
-    }
-
-
-    body.addEventListener('click', function () {
-      cleanHtmlCommonF(["#result-op"]);
-    })
+      body.addEventListener('click', function () {
+         cleanHtmlCommonF(["#result-op"]);
+      })
 
 
 
 
-  </script>
+   </script>
 
 </body>
 
