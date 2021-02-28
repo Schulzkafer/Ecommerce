@@ -47,7 +47,7 @@
 
          <div class="tableRow">
             <p><label>CVV code&ensp;&ensp;</label></p>
-            <p><input name="cvvcodeinput" id="cvvcodeinput"></p>
+            <p><input name="cvvcodeinput" id="cvvcodeinput" autocomplete="off"></p>
          </div>
 
          <div class="tableRow result-checking-reg">
@@ -72,8 +72,8 @@
       </form>
    </div>
 
-   <script src="../scripts/reg-exp-common.js"></script>
-   <script src="../scripts/common-functions.js"></script>
+   <script src="../../scripts/reg-exp-common.js"></script>
+   <script src="../../scripts/common-functions.js"></script>
    <script src="../../scripts/mycookie.js"></script>
    <script>
       'use strict';
@@ -86,7 +86,7 @@
       activateForm()
 
       document.body.addEventListener('click', () => {
-         cleanHtmlCommonF(['#card-number-error-frase', '#cvvcode-error-frase', '#sum-error-frase']);
+         cleanHtmlCommonF(['#card-number-error-frase', '#cvvcode-error-frase', '#sum-error-frase', '#result-op']);
       })
 
       async function sendCreditInfo(e) {
@@ -140,9 +140,6 @@
       }
 
 
-      body.addEventListener('click', function () {
-         cleanHtmlCommonF(["#result-op"]);
-      })
 
 
 

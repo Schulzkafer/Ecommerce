@@ -53,7 +53,10 @@ userRouter.get('/addCredit', (req, res) => {
 
 
 app.get('/openregistration', (req, res) => {
-   res.render('reg-use-credit-folder/registration.hbs')
+   res.render('reg-use-credit-folder/registration.hbs', {
+      title: 'Registration Page',
+      link: '../'
+   });
 });
 
 app.post('/checkin', jsonParser, (req, res) => {
@@ -68,19 +71,35 @@ app.post('/checkin', jsonParser, (req, res) => {
 });
 
 app.post('/registration', jsonParser, (req, res) => {
-   if (!req.body) return res.sendStatus(400);
+   if (!req.body) {
+      res.sendStatus(400);
+      return;
+   }
    let em = req.body.em;
    let pas = req.body.pas;
-   pool.query('select * from users where email=? and password=?', [em, pas], function (err, data) {
+   pool.query('select * from users where email=?', [em], function (err, data) {
       if (err) {
          res.sendStatus(500);
       } else if (!data.length) {
          pool.query('insert into users (email, password) values (?, ?)', [em, pas], function (error, inf) {
-            (error) ? res.sendStatus(500) : res.sendStatus(200);
+            if (error) res.sendStatus(500)
+            else res.status(200).send(JSON.stringify(inf));
          });
       } else res.sendStatus(400);
    });
 });
+
+app.get('/cellphoneAdvertisement', (req, res) => {
+   if (!req) res.status(500)
+   else {
+      pool.query('select * from cell_phones where productcount > 0', function (err, data) {
+         if (err) res.sendStatus(500);
+         else res.status(200).send(JSON.stringify(data));
+      })
+   }
+})
+
+
 
 
 
@@ -118,7 +137,15 @@ app.put('/changeDataUser', jsonParser, (req, res) => {
       return;
    }
 
-   if (inputValidator.checkEmailCommon(b.changeemail) || inputValidator.checkNameSurnameCommon(b.changename) || inputValidator.checkNameSurnameCommon(b.changesurname) || inputValidator.checkPasswordCommon(b.passwordconfirm)) {
+
+   function checkPasswordCommon(arg) {
+      if (!arg || typeof arg != 'string') return "You should type correct value";
+      if (arg.length < 5 || arg.length > 30) return "Password must be between 5 and 30 characters long";
+      if ((/[а-яё]/gi).test(arg)) return "Password must contain only Roman characters, symbols and numbers";
+      if ((arg.match(/[0-9]/g) || []).length == 0) return "Password must include at least one number";
+   }
+
+   if (inputValidator.checkPasswordCommon(b.passwordconfirm) || inputValidator.checkEmailCommon(b.changeemail) || inputValidator.checkNameSurnameCommon(b.changename) || inputValidator.checkNameSurnameCommon(b.changesurname)) {
       res.sendStatus(400);
       return;
    }

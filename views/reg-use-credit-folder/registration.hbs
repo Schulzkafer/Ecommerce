@@ -2,86 +2,153 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <link href="styles/check-reg-window.css" rel="stylesheet">
-    <!-- <link href="style.css" rel="stylesheet"> -->
-    <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
-    <style>
-        #form-toReg {
-            width: 40em;
-            height: 20em;
-            margin: auto;
-            background-color: rgb(97, 148, 207);
-            padding: 3em;
-        }
+   <meta charset="utf-8">
+   <title>{{title}}</title>
+   <meta name="viewport" content="width=device-width">
+   <link href="/styles/direction-line.css" rel="stylesheet">
+   <link href="/styles/common.css" rel="stylesheet">
 
-        .toBlock {
-            margin-top: 1.5em;
-            display: block;
-        }
+   <script async src="https://kit.fontawesome.com/00d30ca4c1.js" crossorigin="anonymous"></script>
 
-        i {
-            z-index: 11111;
-        }
-    </style>
+   <style>
+      body {
+         background-color: rgb(243, 221, 195)
+      }
+
+
+      #form-toReg {
+         width: 20em;
+         height: 20em;
+         margin: auto;
+         padding: 3em;
+
+      }
+
+      .toBlock {
+         margin-top: 1.5em;
+         display: block;
+      }
+   </style>
 
 
 
 </head>
 
+
+
 <body>
+   {{> directionline}}
 
-    <div id="form-toReg">
-        <a href="/">Return to head page</a>
-        <form>
-            <label for="emailReg" class="toBlock">Email</label>
-            <input name="emailReg"></input>
-            <label for="passwordReg" class="toBlock">Password</label>
-            <input name="passwordReg" type="password"></input><input type="checkbox" onclick="showPassword()">Show
-            Password
-            <input name="submitRegButton" type="button" class="toBlock" value="confirm"></input>
-        </form>
 
-    </div>
+   <div id="form-toReg" class="pay-form-style-commonCSS">
+      <h2>Registration form</h2>
+      <h3 id="result-registration-frase"></h3>
+      <form class="regulation-label-form">
+         <div class="tableRow">
+            <p><label for="emailReg">Email&ensp;&ensp;</label></p>
+            <p><input name="emailReg"></p>
+         </div>
 
-    <script>
-        'use strict';
+         <div class="tableRow result-checking-reg">
+            <p></p>
+            <p id="emailReg-error-frase"></p>
+         </div>
 
-        let formReg = document.forms[0];
-        let emailReg = formReg.elements.emailReg;
-        let passwordReg = formReg.elements.passwordReg;
-        let submitRegButton = formReg.elements.submitRegButton;
+         <div class="tableRow">
+            <p><label for="passwordReg">Password&ensp;&ensp;</label></p>
+            <p><input id="password-to-reg" name="passwordReg" type="password"><i
+                  class="fas fa-eye show-password-commonCSS"></i></p>
+         </div>
 
-        function showPassword() {
-            (passwordReg.type === "password") ? passwordReg.type = "text" : passwordReg.type = "password";
-        }
+         <div class="tableRow result-checking-reg">
+            <p></p>
+            <p id="passwordReg-error-frase"></p>
+         </div>
 
-        submitRegButton.addEventListener('click', submitRegFunc)
 
-        function submitRegFunc() {
-            if (!emailReg.value || !passwordReg) return console.log('complete information');
-            let xhr = new XMLHttpRequest();
-            let json = JSON.stringify({ em: emailReg.value, pas: passwordReg.value });
-            xhr.open('POST', '/registration');
-            xhr.setRequestHeader('Content-Type', 'application/json');
-            xhr.send(json);
-            xhr.onload = function () {
-                if (xhr.status == 400) document.body.insertAdjacentHTML('beforeend', '<div class="result-op op-error"><p class="message-op">check-in data error</p><i class="far fa-window-close"></i></div>');
-                else if (xhr.status == 500) document.body.insertAdjacentHTML('beforeend', '<div class="result-op op-server-error"><p class="message-op">internal server error</p><i class="far fa-window-close"></i></div>');
-                else if (xhr.status == 200) document.body.insertAdjacentHTML('beforeend', '<div class="result-op op-success"><p class="message-op">you have successfully logged in</p><i class="far fa-window-close"></i></div>');
-                activateWindowClose();
+         <div class="tableRow">
+            <p></p>
+            <p><input id="send-reg-form" name="submitRegButton" type="submit" class="toBlock" value="Confirm"></p>
+         </div>
+
+      </form>
+
+   </div>
+
+   <script src="../../scripts/common-functions.js"></script>
+   <script src="../../scripts/mycookie.js"></script>
+   <script src="../../scripts/reg-exp-common.js"></script>
+
+
+   <script>
+      'use strict';
+
+      document.body.addEventListener('click', function () {
+         cleanHtmlCommonF(['#result-registration-frase', '#passwordReg-error-frase', '#emailReg-error-frase']);
+      });
+
+      Array.from(document.querySelectorAll('.show-password-commonCSS')).forEach(x => x.addEventListener('click', function (e) {
+         e.preventDefault();
+         showPasswordCommonF(this.previousElementSibling.id);
+      }))
+
+
+
+      document.querySelector('#form-toReg').addEventListener('submit', submitRegFunc);
+
+
+      function submitRegFunc(e) {
+         console.log(4445)
+         e.preventDefault();
+         let formReg = document.forms[0];
+         let emailReg = formReg.elements.emailReg;
+         let passwordReg = formReg.elements.passwordReg;
+         let submitRegButton = formReg.elements.submitRegButton;
+
+         let xhr = new XMLHttpRequest();
+
+         let resultVerificEmail = checkEmailCommon(emailReg.value);
+
+         if (resultVerificEmail) {
+            document.querySelector('#emailReg-error-frase').innerHTML = resultVerificEmail;
+            return;
+         }
+
+         let resultVerificPassword = checkPasswordCommon(passwordReg.value);
+
+         if (resultVerificPassword) {
+            document.querySelector('#passwordReg-error-frase').innerHTML = resultVerificPassword;
+            return;
+         }
+
+         let json = JSON.stringify({ em: emailReg.value, pas: passwordReg.value });
+         xhr.open('POST', '/registration');
+         xhr.setRequestHeader('Content-Type', 'application/json');
+         xhr.send(json);
+         xhr.onload = function () {
+            let resultFrase = document.querySelector('#result-registration-frase');
+            if (xhr.status == 400) {
+               resultFrase.innerHTML = 'This user already exists';
+               resultFrase.style.color = 'red';
             }
-        }
+            else if (xhr.status == 500) {
+               resultFrase.innerHTML = 'Server error, try again, please';;
+               resultFrase.style.color = 'yellow';
+            } else if (xhr.status == 200) {
+               resultFrase.innerHTML = 'The operation completed successfully';
+               resultFrase.style.color = 'green';
+               let resultId = JSON.parse(xhr.response).insertId;
+               setCookie('id', resultId, { 'max-age': 2.592e+6 });
+               setCookie('email', emailReg.value, { 'max-age': 2.592e+6 });
+               emailReg.value = '';
+               passwordReg.value = '';
 
-        function activateWindowClose() {
-            Array.from(document.querySelectorAll('.fa-window-close')).map(x => x.addEventListener('click', function () {
-                this.parentElement.remove()
-            }))
-        }
-        activateWindowClose()
+            }
+         }
+      }
 
-    </script>
+
+   </script>
 
 
 

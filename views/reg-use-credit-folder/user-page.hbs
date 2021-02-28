@@ -155,7 +155,7 @@
          <h3 id="result-changing-frase"></h3>
          <form id="profile-form-changing" name="profileformchanging" class="regulation-label-form">
             <p><input name="idUser" hidden></p>
-            {{!-- ////////////////////////////////////////////////////////// --}}
+
             <div class="tableRow">
                <p><label>New email&ensp;&ensp;</label></p>
                <p><input name="changeemail"></p>
@@ -188,7 +188,7 @@
 
             <div class="tableRow">
                <p><label>Password to confirm&ensp;&ensp;</label></p>
-               <p><input id="passord-confirm-user-change" name="passwordconfirm" autocomplete="on"><i
+               <p><input id="passord-confirm-user-change" name="passwordconfirm" autocomplete="off"><i
                      class="fas fa-eye show-password-commonCSS"></i></p>
             </div>
 
@@ -206,7 +206,7 @@
 
    </div>
 
-   <script src="/scripts/common-functions.js"></script>
+   <script src="../../scripts/common-functions.js"></script>
    <script src="../../scripts/mycookie.js"></script>
    <script src="../../scripts/reg-exp-common.js"></script>
    <script>
@@ -315,7 +315,7 @@
             formInAction.elements.newpassword.value = '';
          }
       }
-
+      //! придумать что делать если имя или фамилия пустые
       function changeUserData(arg) {
          let inf = document.querySelector('.info-about-user-to-change');
          if (inf.style.visibility == 'hidden') {

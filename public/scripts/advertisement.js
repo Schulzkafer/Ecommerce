@@ -1,7 +1,7 @@
 'use strict';
 
+//! положить все картики в массив и вставлть их по очереди в рулетку
 
-//! на сейчас все перенес в advertisement, и отключил этот скрипт
 let main = document.querySelector('#main');
 
 
@@ -50,4 +50,24 @@ function automaticRoulette() {
 
 let t = setInterval(automaticRoulette, 5000);
 
+async function cellphoneAdvertisement() {
+   let response = await fetch('/cellphoneAdvertisement');
 
+   if (response.ok) {
+      arrContainerImagesCellphone = await response.json();
+      let idRoulette = document.querySelector('#roulette-line');
+      // for (let i = 0; i < arr.length; i++) {
+      //    idRoulette.insertAdjacentHTML('beforeend', `<div class="roulette-img"><img src="${arr[i].ImageCode}" class="test-img" alt="Test image1"></div>`);
+      // }
+
+      let idRoulette2 = document.querySelector('#roulette-line2');
+      for (let i = 0; i < arr.length; i++) {
+         idRoulette2.insertAdjacentHTML('beforeend', `<div class="roulette-img"><img src="${arr[i].ImageCode}" class="test-img" alt="Test image1"></div>`);
+      }
+
+   } else {
+      console.log("Error HTTP: " + response.status);
+   }
+
+}
+cellphoneAdvertisement()

@@ -1,25 +1,24 @@
 * {
-    margin:0;
-    padding:0;
-  }
-
+   margin: 0;
+   padding: 0;
+}
 
 #direction-line {
-    display:flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    background-color: #011826;
-    color:#FFFFFF;
-    white-space: nowrap;
-    }
+   display: flex;
+   flex-wrap: nowrap;
+   justify-content: flex-start;
+   background-color: #011826;
+   color: #FFFFFF;
+   white-space: nowrap;
+}
 
-#direction-line div{
-    line-height: 2em;
-    margin-left:3em;
+#direction-line div {
+   line-height: 2em;
+   margin-left: 3em;
    font-size: 1.3em;
 }
 
 #direction-line div a {
-    text-decoration: none;
-    color:#FFFFFF;
+   text-decoration: none;
+   color: #FFFFFF;
 }

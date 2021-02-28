@@ -1,60 +1,48 @@
-           
-    /* ---------------------------third-line---------------------- */
-        
+           /* ---------------------------third-line---------------------- */
 
+           #third-line {
+              display: flex;
+           }
 
+           #roulette, #roulette2 {
+              margin-left: 2em;
+              display: inline-block;
+           }
 
+           .roulette-img {
+              display: inline-block;
+           }
 
-    #roulette {
-        margin-left:20%;
-        display:inline-block;
-    }
+           #roulette-window, #roulette-window2 {
+              position: relative;
+              width: 13em;
+              height: 15em;
+              padding: 0.5em;
+              border: 2px solid red;
+              overflow: hidden;
+           }
 
-        .roulette-img {    
-    display:inline-block;
-        }
+           #roulette-line, #roulette-line2 {
+              width: 9999px;
+           }
 
-        #roulette-window {
-            position:relative;
-            width:30em;
-            height:20em;
-            padding:0.5em;
-            
-            border:2px solid red;
-            overflow:hidden;
-            }
+           .test-img {
+              /* width: 30em; */
+              height: 15em;
+              margin-right: 1em;
+           }
 
-        #roulette-line {
-            width:9999px;
-        }
-        
-        .test-img {
-            width:30em;
-            height:20em;
-            margin-right:1em;
-        }
+           .arrow-control {
+              position: absolute;
+              font-size: 2em;
+              top: 45%;
+              cursor: pointer;
+           }
 
-        .arrow-control {
-            position:absolute;
-            font-size:2em;
-            top:45%;
-            cursor:pointer;
-        }
+           .arrow-control-left {
+              left: 0.5em;
+           }
 
-        .arrow-control-left {
-            left:0.5em;
-        }
-
-        .arrow-control-right {
-            right:0.5em;
-        }
-
-    
-
-
-
-
-
-
-
-        
+           .arrow-control-right {
+              right: 0.5em;
+           }
