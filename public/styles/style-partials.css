@@ -127,7 +127,7 @@
 }
 
 #all-sections ul {
-   opacity: 0;
+   display: none;
    position: absolute;
    list-style-type: none;
    background-color: #8EB1BF;
@@ -135,7 +135,7 @@
 }
 
 #all-sections:hover ul {
-   opacity: 1;
+   display: block;
 }
 
 #all-sections ul li {

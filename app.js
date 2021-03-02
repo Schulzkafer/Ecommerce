@@ -99,6 +99,16 @@ app.get('/cellphoneAdvertisement', (req, res) => {
    }
 })
 
+app.get('/notebookAdvertisement', (req, res) => {
+   if (!req) res.status(500)
+   else {
+      pool.query('select * from laptops where productcount > 0', function (err, data) {
+         if (err) res.sendStatus(500);
+         else res.status(200).send(JSON.stringify(data));
+      })
+   }
+})
+
 
 
 
