@@ -1,13 +1,15 @@
            /* ---------------------------third-line---------------------- */
 
-           #third-line {
+           #third-line {}
+
+           #first-subline {
               display: flex;
+              /* flex-wrap: wrap; */
+              overflow-x: auto;
+              justify-content: center;
            }
 
-           /* удалить roulette2 и все что к ней относится */
-
-           #roulette, #roulette2 {
-              margin-left: 2em;
+           [id^="roulette"] {
               display: inline-block;
               text-align: center;
            }
@@ -16,18 +18,18 @@
               display: inline-block;
            }
 
-           #roulette-window, #roulette-window2 {
+           [id^="roulette-window"] {
               position: relative;
-              width: 13em;
-              height: 19em;
+              min-width: 13em;
+              max-height: 19em;
               padding: 0.5em;
+              margin: 0;
               border: 1px solid rgba(102, 109, 114, 0.5);
               border-radius: 2px;
               overflow: hidden;
            }
 
            .test-img {
-              /* width: 30em; */
               height: 15em;
               margin-right: 1em;
               margin: auto;
@@ -40,10 +42,26 @@
               cursor: pointer;
            }
 
-           .arrow-control-left {
+           .fa-arrow-alt-circle-left {
               left: 0.5em;
            }
 
-           .arrow-control-right {
+           .fa-arrow-alt-circle-right {
               right: 0.5em;
+           }
+
+           @media screen and (max-width: 1060px) {
+              .test-img {
+                 height: 10em;
+              }
+           }
+
+           @media screen and (max-width: 660px) {
+              .test-img {
+                 height: 6em;
+              }
+           }
+
+           #second-subline {
+              text-align: center;
            }

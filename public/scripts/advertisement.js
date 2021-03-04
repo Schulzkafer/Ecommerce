@@ -1,89 +1,103 @@
 'use strict';
 
-///!создать классы для рулетки
-
 let main = document.querySelector('#main');
-let idRoulette = document.querySelector('#roulette-line');
-let idRoulette2 = document.querySelector('#roulette-line2');
 
-let rouletteWindow = document.querySelector('#roulette-window');
-let rouletteWindow2 = document.querySelector('#roulette-window2');
-
-let arrowControlLeft = document.querySelector('.arrow-control-left');
-let arrowControlRight = document.querySelector('.arrow-control-right');
-let arrowControlLeft2 = document.querySelector('.arrow-control-left2');
-let arrowControlRight2 = document.querySelector('.arrow-control-right2');
-
-
-
-
-let arrContainerImagesCellphone = [];
-let arrContainerImagesNotebook = [];
-
-let currentCellphoneImageId = 0;
-let currentNotebookImageId = 0;
-
-let rouletteLine = document.querySelector('#roulette-line');
-
-
-arrowControlLeft.addEventListener('click', () => {
-   if (currentImageId == 0) currentImageId = arrContainerImagesCellphone.length - 1;
-   else currentImageId--;
-   putImage();
-})
-
-arrowControlRight.addEventListener('click', () => {
-   if (currentImageId == arrContainerImagesCellphone.length - 1) currentImageId = 0;
-   else currentImageId++;
-   putImage();
-})
-
-
-function automaticRoulette() {
-   let ev = new Event("click", { bubbles: true });
-   arrowControlRight.dispatchEvent(ev);
-}
-
-let t = setInterval(automaticRoulette, 3000);
-
-async function createImageAdvertisemantContainers(name) {
-   console.log(name)
-   let response = await fetch('/' + name);
-
-   if (response.ok) {
-      let raw = await response.json();
-      let currentRaw;
-      if (name == 'cellphoneAdvertisement') {
-         arrContainerImagesCellphone = shuffleSimple(raw).slice(0, 3)//измени слайс для просмотра большего количества картинок
-         putImage('', arrContainerImagesCellphone, currentCellphoneImageId);
-      } else if (name == 'notebookAdvertisement') {
-         arrContainerImagesNotebook = shuffleSimple(raw).slice(0, 3)
-         putImage2('2', arrContainerImagesNotebook, currentNotebookImageId);
-      }
-
-   } else {
-      console.log("Error HTTP: " + response.status);
+class Roulette {
+   constructor(number, url, limitImgs, interval, subline) {
+      this.number = number;
+      this.url = url;
+      this.subline = subline;
+      this.rouletteId = 'roulette' + this.number;
+      this.descriptionContainer = 'descriptionContainer' + this.number;
+      this.rouletteWindow = 'roulette-window' + this.number;
+      this.leftControl = 'arrow-control-left' + this.number;
+      this.rightControl = 'arrow-control-right' + this.number;
+      this.rouletteLine = 'roulette-line' + this.number;
+      this.insertBlock();
+      this.arrImages = [];
+      this.curPos = 0;
+      this.limitImgs = limitImgs || 3;
+      this.interval = interval || 5000;
    }
 
+   insertBlock() {
+      if (!this.subline) this.subline = '#first-subline';
+      document.querySelector(this.subline).insertAdjacentHTML('beforeend',
+         `<div id="${this.rouletteId}">
+ <div id="${this.rouletteWindow}"><i class="fas fa-arrow-alt-circle-left arrow-control ${this.leftControl}"></i><i
+       class="fas fa-arrow-alt-circle-right arrow-control ${this.rightControl}"></i>
+    <div id="${this.rouletteLine}">
+    </div>
+ </div>
+ </div>`)
+      this.fetch()
+   }
+
+   async fetch() {
+      let response = await fetch(this.url);
+      if (response.ok) {
+         let raw = await response.json();
+         this.arrImages = shuffleSimple(raw).slice(0, this.limitImgs)//измени слайс для просмотра большего количества картинок
+         this.putImage();
+         this.activateButtons();
+      } else {
+         console.log("Error HTTP: " + response.status);
+      }
+
+   }
+   putImage() {
+      document.querySelector('#' + this.rouletteLine).innerHTML = '';
+      if (document.querySelector('#' + this.descriptionContainer)) document.querySelector('#' + this.descriptionContainer).remove()
+      document.querySelector('#' + this.rouletteLine).insertAdjacentHTML('beforeend', `<div class="roulette-img"><img src="${this.arrImages[this.curPos].ImageCode}" class="test-img" alt="Test image1"></div>`);
+      document.querySelector('#' + this.rouletteWindow).insertAdjacentHTML('beforeend',
+         `<div id=${this.descriptionContainer}>
+      <p hidden="true">${this.arrImages[this.curPos].id}</p>
+      <p>${this.arrImages[this.curPos].ProductName}</p>
+      <p>${this.arrImages[this.curPos].Price}</p>
+      </div>`)
+
+   }
+
+   activateButtons() {
+      document.querySelector('.' + this.leftControl).addEventListener('click', () => {
+         if (this.curPos == 0) this.curPos = this.arrImages.length - 1;
+         else this.curPos--;
+         this.putImage();
+      })
+
+      document.querySelector('.' + this.rightControl).addEventListener('click', () => {
+         if (this.curPos == this.arrImages.length - 1) this.curPos = 0;
+         else this.curPos++;
+         this.putImage();
+      })
+   }
+
+   rotate() {
+      document.querySelector('.' + this.rightControl).dispatchEvent(new CustomEvent("click"))
+   }
+
+   beginRotate() {
+      // this.r = setInterval(() => this.rotate(), 2000)
+      this.r = setInterval(this.rotate.bind(this), this.interval)
+   }
+   stopRotate() {
+      clearInterval(this.r)
+   }
 }
 
-/* ['cellphoneAdvertisement', 'notebookAdvertisement'].forEach(x => createImageAdvertisemantContainers(x))
- */
-['cellphoneAdvertisement'].forEach(x => createImageAdvertisemantContainers(x))
 
-function putImage(num, arr, curPos) {
-   (idRoulette + num).innerHTML = '';
-   if (document.querySelector('#descriptionContainer' + num)) document.querySelector('#descriptionContainer' + num).remove()
-      (idRoulette + num).insertAdjacentHTML('beforeend', `<div class="roulette-img"><img src="${arr[curPos.ImageCode]}" class="test-img" alt="Test image1"></div>`);
+let cellphoneRoulette = new Roulette(1, '/cellphoneAdvertisement', null, 10000);
+cellphoneRoulette.beginRotate()
+let notebookRoulette = new Roulette(2, '/notebookAdvertisement');
+notebookRoulette.beginRotate()
+let mixNotebookCellphoneRoulette = new Roulette(3, '/mixNotebookCellphoneAdvertisement');
+mixNotebookCellphoneRoulette.beginRotate()
+let cellphoneRoulette2 = new Roulette(4, '/cellphoneAdvertisement');
+let cellphoneRoulette3 = new Roulette(5, '/cellphoneAdvertisement');
+let cellphoneRoulette4 = new Roulette(6, '/cellphoneAdvertisement');
 
-   (rouletteWindow + num).insertAdjacentHTML('beforeend',
-      `<div id=${descriptionContainer + num}>
-   <p hidden="true">${arr[curPos].id}</p>
-   <p>${arr[curPos].ProductName}</p>
-   <p>${arr[curPos].Price}</p>
-   </div>`)
-}
-
-
-
-
+//!todo микс из телефонов и ноутбуков
+//!todo переход по ссылкам + курсор
+//!todo футер прикрепленный снизу
+//!todo скидочный рулетки второй ряд
+//!todo адаптивные ряды
