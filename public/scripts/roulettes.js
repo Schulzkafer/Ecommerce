@@ -13,23 +13,33 @@ class Roulette {
       this.leftControl = 'arrow-control-left' + this.number;
       this.rightControl = 'arrow-control-right' + this.number;
       this.rouletteLine = 'roulette-line' + this.number;
-      this.insertBlock();
       this.arrImages = [];
       this.curPos = 0;
       this.limitImgs = limitImgs || 3;
       this.interval = interval || 5000;
+      this.linkID = 'linkID' + this.number;
+      this.insertBlock();
+      this.delegation();
    }
+
+   delegation() {
+
+      document.querySelector('#' + this.linkID).addEventListener('click', function (e) {
+         if (e.target.tagName == 'I') e.preventDefault()
+      })
+   }
+
+
 
    insertBlock() {
       if (!this.subline) this.subline = '#first-subline';
       document.querySelector(this.subline).insertAdjacentHTML('beforeend',
-         `<div id="${this.rouletteId}">
- <div id="${this.rouletteWindow}"><i class="fas fa-arrow-alt-circle-left arrow-control ${this.leftControl}"></i><i
-       class="fas fa-arrow-alt-circle-right arrow-control ${this.rightControl}"></i>
-    <div id="${this.rouletteLine}">
-    </div>
+         `<a id="${this.linkID}"><div id="${this.rouletteId}">
+ <div id="${this.rouletteWindow}"><i class="fas fa-arrow-alt-circle-left arrow-control ${this.leftControl}"></i>
+ <i class="fas fa-arrow-alt-circle-right arrow-control ${this.rightControl}"></i>
+    <div id="${this.rouletteLine}"></div>
  </div>
- </div>`)
+ </div></a>`)
       this.fetch()
    }
 
@@ -46,6 +56,15 @@ class Roulette {
 
    }
    putImage() {
+      //---------добавление динамической ссылки----------------//
+      this.link;
+      if ((/cellphone/).test(this.url)) this.link = '/cell_phones/';
+      else if ((/notebook/).test(this.url)) this.link = '/laptops/';
+      this.link = this.link + 'observer/' + this.arrImages[this.curPos].id;
+      let l = document.querySelector('#' + this.linkID);
+      l.href = this.link;
+      //---------------------------------------------------//
+
       document.querySelector('#' + this.rouletteLine).innerHTML = '';
       if (document.querySelector('#' + this.descriptionContainer)) document.querySelector('#' + this.descriptionContainer).remove()
       document.querySelector('#' + this.rouletteLine).insertAdjacentHTML('beforeend', `<div class="roulette-img"><img src="${this.arrImages[this.curPos].ImageCode}" class="test-img" alt="Test image1"></div>`);
@@ -77,7 +96,6 @@ class Roulette {
    }
 
    beginRotate() {
-      // this.r = setInterval(() => this.rotate(), 2000)
       this.r = setInterval(this.rotate.bind(this), this.interval)
    }
    stopRotate() {
@@ -90,14 +108,12 @@ let cellphoneRoulette = new Roulette(1, '/cellphoneAdvertisement', null, 10000);
 cellphoneRoulette.beginRotate()
 let notebookRoulette = new Roulette(2, '/notebookAdvertisement');
 notebookRoulette.beginRotate()
-let mixNotebookCellphoneRoulette = new Roulette(3, '/mixNotebookCellphoneAdvertisement');
-mixNotebookCellphoneRoulette.beginRotate()
+// let mixNotebookCellphoneRoulette = new Roulette(3, '/mixNotebookCellphoneAdvertisement');
+// mixNotebookCellphoneRoulette.beginRotate()
 let cellphoneRoulette2 = new Roulette(4, '/cellphoneAdvertisement');
 let cellphoneRoulette3 = new Roulette(5, '/cellphoneAdvertisement');
 let cellphoneRoulette4 = new Roulette(6, '/cellphoneAdvertisement');
 
-//!todo микс из телефонов и ноутбуков
-//!todo переход по ссылкам + курсор
-//!todo футер прикрепленный снизу
-//!todo скидочный рулетки второй ряд
-//!todo адаптивные ряды
+//!todo микс из телефонов и ноутбуков - удалить
+
+//!сделать счетчик кликов

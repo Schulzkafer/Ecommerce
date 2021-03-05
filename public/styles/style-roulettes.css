@@ -1,10 +1,9 @@
            /* ---------------------------third-line---------------------- */
 
-           #third-line {}
+           /* #third-line {} */
 
            #first-subline {
               display: flex;
-              /* flex-wrap: wrap; */
               overflow-x: auto;
               justify-content: center;
            }
@@ -12,6 +11,12 @@
            [id^="roulette"] {
               display: inline-block;
               text-align: center;
+              /* cursor: pointer; */
+           }
+
+           a[id^="linkID"] {
+              color: #000 !important;
+              text-decoration: none;
            }
 
            .roulette-img {
@@ -30,7 +35,7 @@
            }
 
            .test-img {
-              height: 15em;
+              max-height: 15em;
               margin-right: 1em;
               margin: auto;
            }
@@ -50,18 +55,28 @@
               right: 0.5em;
            }
 
+           /* ---------------------------second-line---------------------- */
+
+           #second-subline {
+              text-align: center;
+           }
+
+           /* ---------------------------media screen---------------------- */
+
            @media screen and (max-width: 1060px) {
+              [id^="roulette-window"] {
+                 height: 12em;
+              }
               .test-img {
-                 height: 10em;
+                 max-height: 10em;
               }
            }
 
            @media screen and (max-width: 660px) {
-              .test-img {
-                 height: 6em;
+              [id^="roulette-window"] {
+                 height: 8em;
               }
-           }
-
-           #second-subline {
-              text-align: center;
+              .test-img {
+                 max-height: 6em;
+              }
            }
